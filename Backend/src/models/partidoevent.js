@@ -1,9 +1,9 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Match = require('./Match');   // Para referencia
+const Match = require('./partido');   // Para referencia
 // Suponiendo que también tengas Player y Team
-const Player = require('./Player');
-const Team = require('./Team');
+const Player = require('./jugador');
+const Team = require('./equipo');
 
 const MatchEvent = sequelize.define('MatchEvent', {
   id: {
