@@ -1,21 +1,20 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const dbConfig = require('../config/database'); // acá está tu configuración
-module.exports = sequelize;
+const { Sequelize,DataTypes } = require('sequelize');
+const sequelize = require('../config/database'); // acá está tu configuración
 
 
 
 // Crear instancia de Sequelize
 
 // Importar modelos pasando sequelize y DataTypes
-const Competition = require('./competicion')(sequelize, DataTypes);
-const CompetitionStanding = require('./CompetionStanding')(sequelize, DataTypes);
-const Team = require('./equipo')(sequelize, DataTypes);
-const Player = require('./jugador')(sequelize, DataTypes);
-const PlayerStatistics = require('./jugadores_estadistica')(sequelize, DataTypes);
-const Match = require('./partido')(sequelize, DataTypes);
-const MatchEvent = require('./partidoevent')(sequelize, DataTypes);
-const User = require('./usuario')(sequelize, DataTypes);
-const FavoriteTeamUser = require('./equipos_favoritos_usuarios')(sequelize, DataTypes);
+const Competition = require('./competicion');
+const CompetitionStanding = require('./CompetionStanding');
+const Team = require('./equipo');
+const Player = require('./jugador');
+const PlayerStatistics = require('./jugadores_estadistica');
+const Match = require('./partido');
+const MatchEvent = require('./partidoevent');
+const User = require('./usuario');
+const FavoriteTeamUser = require('./equipos_favoritos_usuarios');
 
 // =============================
 // Definición de Relaciones
