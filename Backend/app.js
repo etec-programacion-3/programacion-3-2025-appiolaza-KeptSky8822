@@ -1,9 +1,13 @@
 // app.js
 const express = require("express");
 const { sequelize } = require("./src/models");
+const competicion_Routes = require("./src/routes/competitions.routes");
 
 const app = express();
 app.use(express.json());
+
+// Usa las rutas de competiciones
+app.use("/api/competitions", competicion_Routes);
 
 // Rutas de ejemplo
 app.get("/", (req, res) => {

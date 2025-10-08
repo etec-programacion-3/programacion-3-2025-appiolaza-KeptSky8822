@@ -7,7 +7,7 @@ const sequelize = require('../config/database'); // acá está tu configuración
 
 // Importar modelos pasando sequelize y DataTypes
 const Competition = require('./competicion');
-const CompetitionStanding = require('./CompetionStanding');
+const CompetitionStanding = require('./CompetitionStanding');
 const Team = require('./equipo');
 const Player = require('./jugador');
 const PlayerStatistics = require('./jugadores_estadistica');
