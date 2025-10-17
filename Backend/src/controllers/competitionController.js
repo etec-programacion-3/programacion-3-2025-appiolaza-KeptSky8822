@@ -1,5 +1,5 @@
 // src/controllers/competitionController.js
-const { Competition, Equipo } = require('../models');
+const { Competition, Team } = require('../models');
 
 module.exports = {
   // Obtener todas las competiciones
@@ -35,7 +35,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const competition = await Competition.findByPk(id, {
-        include: [{ model: Equipo }]
+        include: [{ model: Team }]
       });
 
       if (!competition) {
@@ -44,7 +44,7 @@ module.exports = {
 
       res.json({
         competition: competition.name,
-        teams: competition.Equipos
+        teams: competition.Teams
       });
     } catch (error) {
       console.error('Error al obtener equipos:', error);

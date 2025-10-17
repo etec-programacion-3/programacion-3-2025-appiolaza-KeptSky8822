@@ -2,12 +2,15 @@
 const express = require("express");
 const { sequelize } = require("./src/models");
 const competicion_Routes = require("./src/routes/competitions.routes");
+const equipo_Routes = require('./src/routes/team.routes');
 
 const app = express();
 app.use(express.json());
 
 // Usa las rutas de competiciones
 app.use("/api/competitions", competicion_Routes);
+// Usa las rutas de equipos
+app.use('/api/teams', equipo_Routes);
 
 // Rutas de ejemplo
 app.get("/", (req, res) => {
@@ -19,7 +22,7 @@ async function main() {
     await sequelize.authenticate();
     console.log("✅ Conectado a la base de datos");
 
-    await sequelize.sync({ alter: true }); // crea/actualiza las tablas
+    await sequelize.sync({  }); // crea/actualiza las tablas
     console.log("✅ Modelos sincronizados");
 
     app.listen(3000, () => {

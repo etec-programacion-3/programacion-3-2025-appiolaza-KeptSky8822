@@ -1,33 +1,41 @@
+// src/seeders/seedStandings.js
 const sequelize = require('../config/database');
-const Competition = require('../models/competicion'); // Ajusta según tu proyecto
+const { DataTypes } = require('sequelize');
+
+// Importamos los modelos
+const Competition = require('../models/competicion');
 const Team = require('../models/equipo');
-const CompetitionStanding = require('../models/CompetitionStanding')(sequelize, require('sequelize').DataTypes);
+const CompetitionStanding = require('../models/CompetitionStanding')(sequelize, DataTypes);
 
 async function seedStandings() {
   try {
+    console.log('🔄 Iniciando seed de CompetitionStandings...');
+
+    // Conexión a la base de datos
     await sequelize.authenticate();
-    console.log('✅ Conexión a la base de datos establecida.');
+    console.log('✅ Conexión establecida con SQLite.');
 
+    // Sincronizamos el modelo (crea la tabla si no existe)
     await sequelize.sync();
-    console.log('📦 Modelos sincronizados.');
+    console.log('🧩 Tablas sincronizadas.');
 
-    // Limpiar datos existentes
+    // Limpiamos los datos anteriores
     await CompetitionStanding.destroy({ where: {} });
-    console.log('🗑️ Datos anteriores eliminados.');
+    console.log('🗑️ Tabla CompetitionStanding vaciada.');
 
-    // Tomamos todas las competiciones y equipos existentes
+    // Obtenemos las competiciones y equipos existentes
     const competitions = await Competition.findAll();
     const teams = await Team.findAll();
 
     if (competitions.length === 0 || teams.length === 0) {
-      console.log('⚠️ No hay competiciones o equipos cargados para repoblar standings.');
+      console.log('⚠️ No hay competiciones o equipos cargados. Primero ejecuta los seeds de competitions y teams.');
       return;
     }
 
+    // Creamos standings de ejemplo (cada equipo en cada competición)
     const standings = [];
 
-    // Crear standings de ejemplo: cada equipo en cada competición
-    competitions.forEach((competition, index) => {
+    competitions.forEach((competition) => {
       teams.forEach((team, i) => {
         standings.push({
           competition_id: competition.id,
@@ -41,20 +49,21 @@ async function seedStandings() {
           goals_for: 0,
           goals_against: 0,
           goal_difference: 0,
-          points: 0
+          points: 0,
         });
       });
     });
 
     await CompetitionStanding.bulkCreate(standings);
-    console.log(`🎉 ${standings.length} registros de standings creados exitosamente.`);
+    console.log(`🎉 ${standings.length} registros de standings creados correctamente.`);
 
   } catch (error) {
-    console.error('❌ Error al repoblar standings:', error);
+    console.error('❌ Error al ejecutar seedStandings:', error);
   } finally {
     await sequelize.close();
     console.log('🔒 Conexión cerrada.');
   }
 }
 
+// Ejecutamos la función
 seedStandings();
