@@ -1,8 +1,8 @@
 // app.js
 const express = require("express");
 const { sequelize } = require("./src/models");
-const competicion_Routes = require("./src/routes/competitions.routes");
-const equipo_Routes = require('./src/routes/team.routes');
+const competicion_Routes = require("./src/routes/competicion_routes");
+const equipo_Routes = require('./src/routes/equipo_routes');
 
 const app = express();
 app.use(express.json());

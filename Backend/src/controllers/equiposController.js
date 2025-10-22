@@ -4,7 +4,7 @@ module.exports = {
   // Obtener todos los equipos
   async getAllTeams(req, res) {
     try {
-      const teams = await Equipo.findAll();
+      const teams = await Team.findAll();
       res.json(teams);
     } catch (error) {
       console.error('Error al obtener equipos:', error);
@@ -16,7 +16,7 @@ module.exports = {
   async getTeamById(req, res) {
     try {
       const { id } = req.params;
-      const team = await Equipo.findByPk(id);
+      const team = await Team.findByPk(id);
 
       if (!team) return res.status(404).json({ error: 'Equipo no encontrado' });
 
@@ -28,22 +28,27 @@ module.exports = {
   },
 
   // Obtener competiciones de un equipo
-  async getCompetitionsByTeam(req, res) {
-    try {
-      const { id } = req.params;
-      const team = await Equipo.findByPk(id, {
-        include: [{ model: Competition }]
-      });
+async getCompetitionsByTeam(req, res) {
+  try {
+    const { id } = req.params;
+    const team = await Team.findByPk(id, {
+      include: [
+        {
+          model: Competition,
+          through: { attributes: [] } // evita devolver columnas de competition_standings
+        }
+      ]
+    });
 
-      if (!team) return res.status(404).json({ error: 'Equipo no encontrado' });
+    if (!team) return res.status(404).json({ error: 'Equipo no encontrado' });
 
-      res.json({
-        team: team.name,
-        competitions: team.Competitions
-      });
-    } catch (error) {
-      console.error('Error al obtener competiciones del equipo:', error);
-      res.status(500).json({ error: 'Error al obtener competiciones del equipo' });
-    }
+    res.json({
+      team: team.name,
+      competitions: team.Competitions
+    });
+  } catch (error) {
+    console.error('Error al obtener competiciones del equipo:', error);
+    res.status(500).json({ error: 'Error al obtener competiciones del equipo' });
   }
+}
 };

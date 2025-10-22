@@ -20,9 +20,18 @@ const FavoriteTeamUser = require('./equipos_favoritos_usuarios');
 // Definición de Relaciones
 // =============================
 
-// Competition -> Teams
-Competition.hasMany(Team, { foreignKey: 'competition_id' });
-Team.belongsTo(Competition, { foreignKey: 'competition_id' });
+// Team <-> Competition a través de CompetitionStanding
+Team.belongsToMany(Competition, {
+  through: 'competition_standings',
+  foreignKey: 'team_id',
+  otherKey: 'competition_id'
+});
+
+Competition.belongsToMany(Team, {
+  through: 'competition_standings',
+  foreignKey: 'competition_id',
+  otherKey: 'team_id'
+});
 
 // Team -> Players
 Team.hasMany(Player, { foreignKey: 'team_id' });
