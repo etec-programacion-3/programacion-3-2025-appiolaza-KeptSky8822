@@ -118,4 +118,17 @@ Team.findByCountry = function(country) {
   });
 };
 
+Team.associate = (models) => {
+  Team.belongsToMany(models.Competition, {
+    through: 'CompetitionStanding',
+    foreignKey: 'team_id',
+    otherKey: 'competition_id'
+  });
+  Team.belongsToMany(models.User, {
+    through: models.FavoriteTeamUser,
+    foreignKey: 'team_id',
+    as: 'fans'
+  });
+};
+
 module.exports = Team;

@@ -129,5 +129,12 @@ Competition.findByType = function(type) {
     order: [['name', 'ASC']]
   });
 };
+Competition.associate = (models) => {
+  Competition.belongsToMany(models.Team, {
+    through: 'CompetitionStanding',
+    foreignKey: 'competition_id',
+    otherKey: 'team_id'
+  });
+};
 
 module.exports = Competition;

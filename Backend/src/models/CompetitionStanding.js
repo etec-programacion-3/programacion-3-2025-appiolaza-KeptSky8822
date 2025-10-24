@@ -1,15 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
   const CompetitionStanding = sequelize.define('CompetitionStanding', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    competition_id: {
+    competition_id : {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: 'competitions', key: 'id' }
+      references: { model: 'competitions' , key: 'id' },
+      onDelete: 'CASCADE'
     },
     team_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: 'teams', key: 'id' }
+      references: { model: 'teams', key: 'id' },
+      onDelete: 'CASCADE'
     },
     phase: {
       type: DataTypes.ENUM('GROUP_STAGE', 'ROUND_OF_16', 'QUARTER_FINALS', 'SEMI_FINALS', 'FINAL'),
@@ -40,3 +42,4 @@ module.exports = (sequelize, DataTypes) => {
 
   return CompetitionStanding;
 };
+         

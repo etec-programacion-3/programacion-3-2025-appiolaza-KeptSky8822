@@ -1,5 +1,5 @@
-const sequelize = require('./config/database');
-const { Competition } = require('./models');
+const sequelize = require('../config/database');
+const { Competition } = require('../models');
 
 const competitions = [
   {
@@ -76,4 +76,4 @@ async function seedCompetitions() {
 }
 
 // Ejecutar el script
-seedCompetitions();
+seedCompetitions(); 
