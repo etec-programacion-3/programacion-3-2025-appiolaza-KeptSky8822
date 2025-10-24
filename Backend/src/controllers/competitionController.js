@@ -2,11 +2,29 @@
 const { Competition, Team } = require('../models');
 
 module.exports = {
-  // Obtener todas las competiciones
+  // Obtener todas las competiciones con paginación
   async getAllCompetitions(req, res) {
     try {
-      const competitions = await Competition.findAll();
-      res.json(competitions);
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+      const offset = (page - 1) * limit;
+
+      const { count, rows: competitions } = await Competition.findAndCountAll({
+        limit,
+        offset
+      });
+
+      const totalPages = Math.ceil(count / limit);
+
+      res.json({
+        data: competitions,
+        pagination: {
+          total: count,
+          page,
+          limit,
+          totalPages
+        }
+      });
     } catch (error) {
       console.error('Error al obtener competiciones:', error);
       res.status(500).json({ error: 'Error al obtener competiciones' });

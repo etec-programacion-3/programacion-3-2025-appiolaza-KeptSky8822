@@ -24,6 +24,7 @@ app.use('/api/match-events',partidoevent_Routes );
 // Usas las rutas de usuarios
 app.use('/api/users', usuario_Routes);  
 
+
 // Rutas de ejemplo
 app.get("/", (req, res) => {
   res.send("Servidor funcionando 🚀");

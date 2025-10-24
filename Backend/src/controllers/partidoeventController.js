@@ -1,13 +1,30 @@
 const MatchEvent = require('../models/partidoevent');
 
 module.exports = {
-  // Obtener todos los eventos
+  // Obtener todos los eventos con paginación
   async getAll(req, res) {
     try {
-      const events = await MatchEvent.findAll({
-        include: ['Match', 'Player', 'Team'] // Incluye relaciones
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+      const offset = (page - 1) * limit;
+
+      const { count, rows: events } = await MatchEvent.findAndCountAll({
+        include: ['Match', 'Player', 'Team'], // Incluye relaciones
+        limit,
+        offset
       });
-      res.json(events);
+
+      const totalPages = Math.ceil(count / limit);
+
+      res.json({
+        data: events,
+        pagination: {
+          total: count,
+          page,
+          limit,
+          totalPages
+        }
+      });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

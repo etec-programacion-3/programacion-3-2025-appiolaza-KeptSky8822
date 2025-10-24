@@ -1,11 +1,29 @@
 const User = require('../models/usuario');
 
 module.exports = {
-  // Listar todos los usuarios
+  // Listar todos los usuarios con paginación
   async getAll(req, res) {
     try {
-      const users = await User.findAll();
-      res.json(users);
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+      const offset = (page - 1) * limit;
+
+      const { count, rows: users } = await User.findAndCountAll({
+        limit,
+        offset
+      });
+
+      const totalPages = Math.ceil(count / limit);
+
+      res.json({
+        data: users,
+        pagination: {
+          total: count,
+          page,
+          limit,
+          totalPages
+        }
+      });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

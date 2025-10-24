@@ -73,5 +73,13 @@ User.prototype.isAdmin = function() {
 User.prototype.isModerator = function() {
   return this.role === 'moderator';
 };
+User.associate = (models) => {
+  User.belongsToMany(models.Team, {
+    through: models.FavoriteTeamUser,
+    foreignKey: 'user_id',
+    as: 'favoriteTeams'
+  });
+};
+
 
 module.exports = User;

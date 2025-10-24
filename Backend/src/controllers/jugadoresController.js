@@ -1,13 +1,30 @@
 const { Player, Team, PlayerStatistics } = require('../models');
 
 module.exports = {
-  // Obtener todos los jugadores
+  // Obtener todos los jugadores con paginación
   async getAllPlayers(req, res) {
     try {
-      const players = await Player.findAll({
-        include: [{ model: Team, attributes: ['name'] }]
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+      const offset = (page - 1) * limit;
+
+      const { count, rows: players } = await Player.findAndCountAll({
+        include: [{ model: Team, attributes: ['name'] }],
+        limit,
+        offset
       });
-      res.json(players);
+
+      const totalPages = Math.ceil(count / limit);
+
+      res.json({
+        data: players,
+        pagination: {
+          total: count,
+          page,
+          limit,
+          totalPages
+        }
+      });
     } catch (error) {
       console.error('Error al obtener jugadores:', error);
       res.status(500).json({ error: 'Error al obtener jugadores' });

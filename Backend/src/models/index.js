@@ -14,7 +14,7 @@ const PlayerStatistics = require('./jugadores_estadistica');
 const Match = require('./partido');
 const MatchEvent = require('./partidoevent');
 const User = require('./usuario');
-const FavoriteTeamUser = require('./equipos_favoritos_usuarios');
+const FavoriteTeam = require('./equipos_favoritos_usuarios');
 
 // =============================
 // Definición de Relaciones
@@ -60,8 +60,8 @@ Player.hasOne(PlayerStatistics, { foreignKey: 'player_id' });
 PlayerStatistics.belongsTo(Player, { foreignKey: 'player_id' });
 
 // Usuario -> Favoritos (relación muchos a muchos con equipos)
-User.belongsToMany(Team, { through: FavoriteTeamUser, foreignKey: 'user_id' });
-Team.belongsToMany(User, { through: FavoriteTeamUser, foreignKey: 'team_id' });
+User.belongsToMany(Team, { through: FavoriteTeam, foreignKey: 'user_id' , as: 'favoriteTeams'});
+Team.belongsToMany(User, { through: FavoriteTeam, foreignKey: 'team_id' ,as: 'fans'});
 
 // Exportar
 module.exports = {
@@ -75,5 +75,5 @@ module.exports = {
   Match,
   MatchEvent,
   User,
-  FavoriteTeamUser,
+  FavoriteTeam,
 };
