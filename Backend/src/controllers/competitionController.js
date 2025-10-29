@@ -1,5 +1,6 @@
 // src/controllers/competitionController.js
 const { Competition, Team } = require('../models');
+const fetchScorers = require('../services/fetchScorers');
 
 module.exports = {
   // Obtener todas las competiciones con paginación
@@ -67,6 +68,31 @@ module.exports = {
     } catch (error) {
       console.error('Error al obtener equipos:', error);
       res.status(500).json({ error: 'Error al obtener equipos de la competición' });
+    }
+  },
+
+  // Fetch and save scorers for a competition
+  async fetchScorersForCompetition(req, res) {
+    try {
+      const { id } = req.params;
+      const { season } = req.query; // e.g., 2024
+
+      if (!season) {
+        return res.status(400).json({ error: 'Season parameter is required' });
+      }
+
+      const competition = await Competition.findByPk(id);
+      if (!competition) {
+        return res.status(404).json({ error: 'Competición no encontrada' });
+      }
+
+      // Run the fetch in background
+      fetchScorers(id, season);
+
+      res.json({ message: `Fetching scorers for competition ${competition.name} in season ${season}` });
+    } catch (error) {
+      console.error('Error triggering scorers fetch:', error);
+      res.status(500).json({ error: 'Error al iniciar la obtención de goleadores' });
     }
   }
 };

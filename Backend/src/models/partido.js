@@ -16,6 +16,16 @@ const Match = sequelize.define('Match', {
     allowNull: true,
     comment: 'Jornada de la competición'
   },
+  matchweek: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    comment: 'Semana del partido (para competiciones semanales)'
+  },
+  round: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+    comment: 'Ronda del torneo (ej: Octavos, Cuartos, etc.)'
+  },
   status: {
     type: DataTypes.ENUM,
     values: ['scheduled', 'live', 'halftime', 'finished', 'postponed', 'cancelled'],
@@ -181,7 +191,7 @@ const Match = sequelize.define('Match', {
   },
   home_team_id: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true, // Cambiar a true para permitir null temporalmente
     references: {
       model: 'teams',
       key: 'id'
@@ -189,11 +199,16 @@ const Match = sequelize.define('Match', {
   },
   away_team_id: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true, // Cambiar a true para permitir null temporalmente
     references: {
       model: 'teams',
       key: 'id'
     }
+  },
+  last_updated: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    comment: 'Última actualización desde API externa'
   }
 }, {
   tableName: 'matches',
