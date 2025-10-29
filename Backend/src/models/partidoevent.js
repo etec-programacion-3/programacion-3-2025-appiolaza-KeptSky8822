@@ -42,7 +42,7 @@ const MatchEvent = sequelize.define('MatchEvent', {
   },
   event_type: {
     type: DataTypes.ENUM,
-    values: ['GOAL', 'YELLOW_CARD', 'RED_CARD', 'SUBSTITUTION', 'OWN_GOAL', 'PENALTY_MISSED'],
+    values: ['GOAL', 'YELLOW_CARD', 'RED_CARD', 'SUBSTITUTION', 'OWN_GOAL', 'PENALTY_MISSED', 'VAR_DECISION', 'PENALTY_SCORED', 'OFFSIDE', 'SUBSTITUTION_IN', 'SUBSTITUTION_OUT', 'INJURY', 'SECOND_YELLOW_CARD'],
     allowNull: false
   },
   description: {
@@ -53,6 +53,11 @@ const MatchEvent = sequelize.define('MatchEvent', {
   created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
+  },
+  last_updated: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    comment: 'Última actualización desde API externa'
   }
 }, {
   tableName: 'match_events',

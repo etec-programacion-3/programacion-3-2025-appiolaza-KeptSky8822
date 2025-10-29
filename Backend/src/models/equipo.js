@@ -93,6 +93,11 @@ const Team = sequelize.define('Team', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: false
+  },
+  last_updated: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    comment: 'Última actualización desde API externa'
   }
 }, {
   tableName: 'teams',

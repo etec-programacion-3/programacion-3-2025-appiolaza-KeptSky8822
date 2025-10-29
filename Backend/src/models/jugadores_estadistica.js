@@ -89,8 +89,13 @@ const PlayerStatistics = sequelize.define('PlayerStatistics', {
       }
       return 0;
     }
+  },
+  last_updated: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    comment: 'Última actualización desde API externa'
   }
-}, { 
+}, {
   tableName: 'player_statistics',
   indexes: [
     // Índice único para evitar duplicados de jugador-temporada

@@ -22,13 +22,13 @@ const FavoriteTeam = require('./equipos_favoritos_usuarios');
 
 // Team <-> Competition a través de CompetitionStanding
 Team.belongsToMany(Competition, {
-  through: 'competition_standings',
+  through: CompetitionStanding,
   foreignKey: 'team_id',
   otherKey: 'competition_id'
 });
 
 Competition.belongsToMany(Team, {
-  through: 'competition_standings',
+  through: CompetitionStanding,
   foreignKey: 'competition_id',
   otherKey: 'team_id'
 });
@@ -68,8 +68,8 @@ module.exports = {
   sequelize,
   Sequelize,
   Competition,
-  CompetitionStanding,
   Team,
+  CompetitionStanding,
   Player,
   PlayerStatistics,
   Match,

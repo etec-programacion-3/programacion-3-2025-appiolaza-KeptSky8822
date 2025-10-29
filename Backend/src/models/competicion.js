@@ -65,6 +65,11 @@ const Competition = sequelize.define('Competition', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: true
+  },
+  last_updated: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    comment: 'Última actualización desde API externa'
   }
 }, {
   tableName: 'competitions',

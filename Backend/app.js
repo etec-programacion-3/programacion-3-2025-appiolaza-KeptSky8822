@@ -7,6 +7,9 @@ const jugadores_Routes = require('./src/routes/jugadores_routes');
 const partido_Routes = require('./src/routes/partido_routes');
 const partidoevent_Routes = require('./src/routes/partidoevent_routes');
 const usuario_Routes = require('./src/routes/usuario_routes');
+const autoUpdateService = require('./src/services/autoUpdateService');
+require('dotenv').config();
+
 
 const app = express();
 app.use(express.json());
@@ -30,16 +33,48 @@ app.get("/", (req, res) => {
   res.send("Servidor funcionando 🚀");
 });
 
+// Rutas de administración del servicio automático
+app.get("/api/admin/auto-update/status", (req, res) => {
+  const status = autoUpdateService.getStatus();
+  res.json({
+    message: "Estado del servicio de actualización automática",
+    ...status
+  });
+});
+
+app.post("/api/admin/auto-update/manual", async (req, res) => {
+  try {
+    await autoUpdateService.manualSync();
+    res.json({ message: "Sincronización manual completada exitosamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error en sincronización manual", details: error.message });
+  }
+});
+
+app.post("/api/admin/auto-update/start", (req, res) => {
+  autoUpdateService.startScheduler();
+  res.json({ message: "Programador automático iniciado" });
+});
+
+app.post("/api/admin/auto-update/stop", (req, res) => {
+  autoUpdateService.stopScheduler();
+  res.json({ message: "Programador automático detenido" });
+});
+
 async function main() {
   try {
     await sequelize.authenticate();
     console.log("✅ Conectado a la base de datos");
 
-    await sequelize.sync({  }); // crea/actualiza las tablas
+    await sequelize.sync({ alter: true }); // crea/actualiza las tablas
     console.log("✅ Modelos sincronizados");
 
     app.listen(3000, () => {
       console.log("Servidor corriendo en http://localhost:3000");
+
+      // Iniciar servicio de actualización automática
+      autoUpdateService.startScheduler();
+      console.log("🔄 Servicio de actualización automática iniciado");
     });
   } catch (error) {
     console.error("❌ Error al iniciar:", error);

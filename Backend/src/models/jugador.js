@@ -86,10 +86,11 @@ const Player = sequelize.define('Player', {
     allowNull: true,
     comment: 'Peso en kilogramos'
   },
-  foot: {
+  preferred_foot: {
     type: DataTypes.ENUM,
     values: ['left', 'right', 'both'],
-    allowNull: true
+    allowNull: true,
+    comment: 'Pie preferido del jugador'
   },
   market_value: {
     type: DataTypes.BIGINT,
@@ -130,6 +131,11 @@ const Player = sequelize.define('Player', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: true
+  },
+  last_updated: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    comment: 'Última actualización desde API externa'
   },
   // Referencias foráneas
   team_id: {

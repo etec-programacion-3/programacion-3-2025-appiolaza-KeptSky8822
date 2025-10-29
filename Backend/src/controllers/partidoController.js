@@ -144,6 +144,99 @@ const matchController = {
     console.error('❌ Error al obtener calendario de partidos:', error);
     res.status(500).json({ message: 'Error al obtener los partidos', error });
   }
+},
+
+// 🏆 Obtener partidos en vivo de las 4 competiciones principales
+getLiveMatches: async (req, res) => {
+  try {
+    const matches = await Match.findAll({
+      where: {
+        status: ['1H', '2H', 'HT', 'LIVE'],
+        competition_id: [2, 140, 13, 128] // Champions, La Liga, Libertadores, Liga Argentina
+      },
+      include: [
+        { model: Team, as: 'homeTeam', attributes: ['id', 'name', 'logo_url'] },
+        { model: Team, as: 'awayTeam', attributes: ['id', 'name', 'logo_url'] },
+        { model: Competition, attributes: ['id', 'name'] }
+      ],
+      order: [['match_date', 'ASC']]
+    });
+
+    res.json(matches);
+  } catch (error) {
+    console.error('❌ Error al obtener partidos en vivo:', error);
+    res.status(500).json({ message: 'Error al obtener partidos en vivo' });
+  }
+},
+
+// 🏆 Obtener partidos de una competición específica
+getMatchesByCompetition: async (req, res) => {
+  try {
+    const { competitionId } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const offset = (page - 1) * limit;
+
+    // Validar que sea una de las 4 competiciones permitidas
+    const allowedCompetitions = [2, 140, 13, 128]; // Champions, La Liga, Libertadores, Liga Argentina
+    if (!allowedCompetitions.includes(parseInt(competitionId))) {
+      return res.status(400).json({ message: 'Competición no permitida' });
+    }
+
+    const { count, rows: matches } = await Match.findAndCountAll({
+      where: { competition_id: competitionId },
+      include: [
+        { model: Team, as: 'homeTeam', attributes: ['id', 'name', 'logo_url'] },
+        { model: Team, as: 'awayTeam', attributes: ['id', 'name', 'logo_url'] },
+        { model: Competition, attributes: ['id', 'name'] }
+      ],
+      order: [['match_date', 'DESC']],
+      limit,
+      offset
+    });
+
+    const totalPages = Math.ceil(count / limit);
+
+    res.json({
+      data: matches,
+      pagination: {
+        total: count,
+        page,
+        limit,
+        totalPages
+      }
+    });
+  } catch (error) {
+    console.error('❌ Error al obtener partidos por competición:', error);
+    res.status(500).json({ message: 'Error al obtener partidos por competición' });
+  }
+},
+
+// 🏆 Obtener próximos partidos de las 4 competiciones
+getUpcomingMatches: async (req, res) => {
+  try {
+    const matches = await Match.findAll({
+      where: {
+        status: 'NS', // Not Started
+        competition_id: [2, 140, 13, 128],
+        match_date: {
+          [Op.gte]: new Date() // Partidos futuros
+        }
+      },
+      include: [
+        { model: Team, as: 'homeTeam', attributes: ['id', 'name', 'logo_url'] },
+        { model: Team, as: 'awayTeam', attributes: ['id', 'name', 'logo_url'] },
+        { model: Competition, attributes: ['id', 'name'] }
+      ],
+      order: [['match_date', 'ASC']],
+      limit: 50
+    });
+
+    res.json(matches);
+  } catch (error) {
+    console.error('❌ Error al obtener próximos partidos:', error);
+    res.status(500).json({ message: 'Error al obtener próximos partidos' });
+  }
 }
 };
 
