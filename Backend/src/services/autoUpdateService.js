@@ -5,6 +5,7 @@ const { fetchTeams } = require('./fetchTeams');
 const { fetchMatches } = require('./fetchMatches');
 const { syncStandings } = require('./syncStandings');
 const { fetchPlayers } = require('./fetchPlayers');
+const fetchScorers = require('./fetchScorers');
 
 class AutoUpdateService {
   constructor() {
@@ -54,6 +55,10 @@ class AutoUpdateService {
       console.log('👥 Sincronizando jugadores de Champions League...');
       await fetchPlayers('CL', 2025);
 
+      // 6. Sincronizar goleadores de Champions League
+      console.log('⚽ Sincronizando goleadores de Champions League...');
+      await fetchScorers(2001, '2024'); // Competition ID 2001 for Champions League
+
       console.log('✅ Sincronización automática completada exitosamente!');
     } catch (error) {
       console.error('❌ Error en sincronización automática:', error.message);
@@ -62,7 +67,7 @@ class AutoUpdateService {
     }
   }
 
-  // Sincronización rápida (solo posiciones y partidos recientes)
+  // Sincronización rápida (posiciones, partidos y goleadores recientes)
   async quickSync() {
     if (this.isRunning) return;
 
@@ -70,8 +75,26 @@ class AutoUpdateService {
     console.log('⚡ Iniciando sincronización rápida...');
 
     try {
-      // Solo sincronizar posiciones de Champions League
+      // Sincronizar posiciones de Champions League
       await syncStandings('CL');
+
+      // Sincronizar partidos de todas las competiciones principales
+      const competitions = [
+        { code: 'CL', name: 'UEFA Champions League', season: 2025 },
+        { code: 'PD', name: 'La Liga', season: 2025 },
+        { code: 'CLI', name: 'CONMEBOL Libertadores', season: 2025 },
+        { code: 'PL', name: 'Premier League', season: 2025 }
+      ];
+
+      for (const comp of competitions) {
+        console.log(`⚽ Sincronizando partidos de ${comp.name}...`);
+        await fetchMatches(comp.code, comp.season);
+      }
+
+      // Sincronizar goleadores de Champions League
+      console.log('🎯 Sincronizando goleadores de Champions League...');
+      await fetchScorers(2001, '2024');
+
       console.log('✅ Sincronización rápida completada!');
     } catch (error) {
       console.error('❌ Error en sincronización rápida:', error.message);

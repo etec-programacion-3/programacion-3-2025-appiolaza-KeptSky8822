@@ -59,6 +59,10 @@ MatchEvent.belongsTo(Player, { foreignKey: 'player_id' });
 Player.hasOne(PlayerStatistics, { foreignKey: 'player_id' });
 PlayerStatistics.belongsTo(Player, { foreignKey: 'player_id' });
 
+// Competition -> PlayerStatistics
+Competition.hasMany(PlayerStatistics, { foreignKey: 'id_competition' });
+PlayerStatistics.belongsTo(Competition, { foreignKey: 'id_competition' });
+
 // Usuario -> Favoritos (relación muchos a muchos con equipos)
 User.belongsToMany(Team, { through: FavoriteTeam, foreignKey: 'user_id' , as: 'favoriteTeams'});
 Team.belongsToMany(User, { through: FavoriteTeam, foreignKey: 'team_id' ,as: 'fans'});

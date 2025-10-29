@@ -1,5 +1,6 @@
 const PlayerStatistics = require('../models/jugadores_estadistica');
 const Player = require('../models/jugador');
+const { Competition } = require('../models');
 const sequelize = require('../config/database');
 
 const seedPlayerStatistics = async () => {
@@ -10,8 +11,17 @@ const seedPlayerStatistics = async () => {
       attributes: ['id', 'first_name', 'last_name']
     });
 
+    const competitions = await Competition.findAll({
+      attributes: ['id']
+    });
+
     if (!players.length) {
       console.log('⚠️ No hay jugadores en la base de datos. Ejecutá primero el seed de jugadores.');
+      return;
+    }
+
+    if (!competitions.length) {
+      console.log('⚠️ No hay competiciones en la base de datos. Ejecutá primero el seed de competiciones.');
       return;
     }
 
@@ -22,11 +32,13 @@ const seedPlayerStatistics = async () => {
       const yellow = Math.floor(Math.random() * 6);
       const red = Math.floor(Math.random() * 2);
       const minutes = games * (Math.floor(Math.random() * 30) + 60);
+      const randomCompetition = competitions[Math.floor(Math.random() * competitions.length)];
 
-      console.log(`Generando stats para ${player.first_name} ${player.last_name}`);
+      console.log(`Generando stats para ${player.first_name} ${player.last_name} en competición ${randomCompetition.id}`);
 
       return {
         player_id: player.id,
+        id_competition: randomCompetition.id,
         season: '2024-25',
         games_played: games,
         goals,

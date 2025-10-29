@@ -2,18 +2,26 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const PlayerStatistics = sequelize.define('PlayerStatistics', {
-  id: { 
-    type: DataTypes.INTEGER, 
-    primaryKey: true, 
-    autoIncrement: true 
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
-  player_id: { 
-    type: DataTypes.INTEGER, 
+  player_id: {
+    type: DataTypes.INTEGER,
     allowNull: false,
-    references: { 
-      model: 'players', 
-      key: 'id' 
-    } 
+    references: {
+      model: 'players',
+      key: 'id'
+    }
+  },
+  id_competition: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'competitions',
+      key: 'id'
+    }
   },
   season: { 
     type: DataTypes.STRING(20),
@@ -98,14 +106,18 @@ const PlayerStatistics = sequelize.define('PlayerStatistics', {
 }, {
   tableName: 'player_statistics',
   indexes: [
-    // Índice único para evitar duplicados de jugador-temporada
+    // Índice único para evitar duplicados de jugador-temporada-competencia
     {
       unique: true,
-      fields: ['player_id', 'season']
+      fields: ['player_id', 'season', 'id_competition']
     },
     // Índice para consultas por temporada
     {
       fields: ['season']
+    },
+    // Índice para consultas por competencia
+    {
+      fields: ['id_competition']
     }
   ]
 });
