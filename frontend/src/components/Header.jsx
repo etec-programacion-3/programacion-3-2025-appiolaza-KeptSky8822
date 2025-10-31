@@ -79,12 +79,12 @@ const Header = () => {
                 </button>
               ) : (
                 <div className="auth-buttons">
-                  <button className="auth-btn login-btn" title="Iniciar Sesión">
+                  <Link to="/login" className="auth-btn login-btn">
                     Iniciar Sesión
-                  </button>
-                  <button className="auth-btn register-btn" title="Registrarse">
+                  </Link>
+                  <Link to="/register" className="auth-btn register-btn">
                     Registrarse
-                  </button>
+                  </Link>
                 </div>
               )}
             </li>

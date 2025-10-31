@@ -21,7 +21,9 @@ const Home = () => {
       country: 'England',
       teams: 20,
       status: 'active',
-      color: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)'
+      color: 'linear-gradient(135deg, #4c1d95 0%, #581c87 50%, #6d28d9 100%)',
+      hasImage: true,
+      imagePath: '/assets/premier-league-logo.png'
     },
     {
       id: 3,
@@ -41,7 +43,9 @@ const Home = () => {
       country: 'Italy',
       teams: 20,
       status: 'active',
-      color: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)'
+      color: 'linear-gradient(135deg, #1e40af 0%, #1d4ed8 50%, #2563eb 100%)',
+      hasImage: true,
+      imagePath: '/assets/serie-a-logo.png'
     },
     {
       id: 5,
@@ -50,7 +54,9 @@ const Home = () => {
       country: 'Germany',
       teams: 18,
       status: 'active',
-      color: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)'
+      color: 'linear-gradient(135deg, #b91c1c 0%, #dc2626 50%, #ef4444 100%)',
+      hasImage: true,
+      imagePath: '/assets/bundesliga-logo.png'
     },
     {
       id: 6,
@@ -59,7 +65,9 @@ const Home = () => {
       country: 'France',
       teams: 18,
       status: 'active',
-      color: 'linear-gradient(135deg, #ea580c 0%, #c2410c 100%)'
+      color: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%)',
+      hasImage: true,
+      imagePath: '/assets/ligue-1-logo.jpg'
     }
   ];
 
@@ -74,7 +82,15 @@ const Home = () => {
         {competitions.map((competition) => (
           <Link
             key={competition.id}
-            to={competition.id === 1 ? "/champions" : "/equipos"}
+            to={
+              competition.id === 1 ? "/champions" :
+              competition.id === 2 ? "/premier-league" :
+              competition.id === 3 ? "/laliga" :
+              competition.id === 4 ? "/serie-a" :
+              competition.id === 5 ? "/bundesliga" :
+              competition.id === 6 ? "/ligue-1" :
+              "/equipos"
+            }
             className={`competition-showcase-card ${competition.isChampions ? 'champions-card-special' : ''}`}
             style={{ background: competition.color }}
           >

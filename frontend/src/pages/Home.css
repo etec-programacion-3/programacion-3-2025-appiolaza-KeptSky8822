@@ -27,13 +27,13 @@
 
 /* Competitions Showcase */
 .competitions-showcase {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0px;
+  padding: 2rem 1rem;
   max-width: 1400px;
   margin: 0 auto;
+  justify-items: center;
 }
 
 .competition-showcase-card {
@@ -187,7 +187,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero {
-    padding: 2rem 1rem;
+    padding: 2rem 0;
   }
 
   .hero h1 {

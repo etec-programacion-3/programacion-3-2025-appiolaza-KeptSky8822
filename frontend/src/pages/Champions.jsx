@@ -23,7 +23,7 @@ const Champions = () => {
             <p>Cobertura</p>
           </div>
           <div className="stat-card">
-            <h3>2024-25</h3>
+            <h3>2025-26</h3>
             <p>Temporada</p>
           </div>
         </div>
