@@ -1,0 +1,278 @@
+/* Header Styles */
+.header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.header-logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.header-logo:hover {
+  color: var(--accent-color);
+}
+
+/* Search Container */
+.search-container {
+  flex: 1;
+  max-width: 500px;
+  margin: 0 2rem;
+  position: relative;
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  border: 2px solid var(--border-color);
+  border-radius: 25px;
+  background-color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+/* Search Results */
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  margin-top: 0.5rem;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-result-item:hover {
+  background-color: var(--light-bg);
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.result-icon {
+  font-size: 1.2rem;
+  margin-right: 0.75rem;
+  width: 20px;
+  text-align: center;
+}
+
+.result-text {
+  flex: 1;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.result-type {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+  background-color: var(--light-bg);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1rem;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--accent-color);
+}
+
+.nav-link.active {
+  background-color: var(--accent-color);
+}
+
+/* Auth Buttons */
+.auth-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.auth-btn {
+  padding: 0.5rem 1rem;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.auth-btn:hover {
+  background-color: white;
+  color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.login-btn {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.login-btn:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.register-btn {
+  border-color: var(--success-color);
+  color: var(--success-color);
+}
+
+.register-btn:hover {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.user-btn {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.user-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--accent-color);
+}
+
+/* Mobile Menu Toggle - Removed as navigation is simplified */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .header-logo {
+    font-size: 1.5rem;
+    order: 1;
+    width: 100%;
+    text-align: center;
+  }
+
+  .search-container {
+    order: 2;
+    width: 100%;
+    margin: 0;
+    max-width: none;
+  }
+
+  .nav {
+    order: 3;
+    margin-left: auto;
+  }
+
+  .search-input {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem 0.6rem 2.5rem;
+  }
+
+  .search-icon {
+    left: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .nav-link {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+
+  .auth-buttons {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .auth-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
