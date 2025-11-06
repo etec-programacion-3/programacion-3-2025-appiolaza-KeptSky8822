@@ -1,34 +1,43 @@
 /* La Liga Page Styles */
-.laliga {
+.laliga-page {
   min-height: calc(100vh - 200px);
-  padding: 2rem;
 }
 
-.page-header {
+.laliga-hero {
   text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #c8102e 0%, #f39c12 100%);
+  color: white;
   margin-bottom: 3rem;
 }
 
-.page-header h1 {
-  font-size: 3rem;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  font-weight: bold;
+.laliga-logo-large {
+  font-size: 6rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
-.page-header p {
+.laliga-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.laliga-hero p {
   font-size: 1.2rem;
-  color: var(--text-secondary);
+  opacity: 0.9;
   max-width: 600px;
   margin: 0 auto;
 }
 
-.competition-info-section {
+.laliga-content {
   max-width: 1200px;
-  margin: 0 auto 4rem auto;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-.competition-stats {
+.laliga-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
@@ -57,104 +66,280 @@
   font-weight: 500;
 }
 
-.competition-description {
+.laliga-info {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--border-color);
+  margin-top: 3rem;
 }
 
-.competition-description h2 {
+.laliga-info h2 {
   color: var(--text-primary);
   font-size: 2rem;
   margin-bottom: 1.5rem;
 }
 
-.competition-description p {
+.laliga-info p {
   color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 1rem;
   font-size: 1.1rem;
 }
 
-.teams-section {
-  max-width: 1200px;
-  margin: 0 auto;
+/* Standings Table Styles */
+.standings-section {
+  margin-bottom: 3rem;
 }
 
-.teams-section h2 {
-  text-align: center;
-  font-size: 2.5rem;
+.standings-section h2 {
   color: var(--text-primary);
+  font-size: 2rem;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
-.teams-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.team-card {
+.standings-table-container {
   background: var(--card-bg);
   border-radius: 12px;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  padding: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--border-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow-x: auto;
 }
 
-.team-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
 }
 
-.team-logo {
-  font-size: 2.5rem;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-secondary);
-  border-radius: 50%;
+.standings-table th,
+.standings-table td {
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.standings-table th {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.standings-table tbody tr:hover {
+  background-color: var(--light-bg);
+}
+
+.standings-table .position {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.standings-table .team-name {
+  text-align: left;
+  font-weight: 500;
+  max-width: 200px;
 }
 
 .team-info {
-  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.team-name {
-  font-size: 1.2rem;
+.team-logo-small {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.status-cell {
+  text-align: center;
+}
+
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.champions-league {
+  background-color: #0066cc;
+  color: white;
+}
+
+.status-badge.europa-league {
+  background-color: #ff6600;
+  color: white;
+}
+
+.status-badge.conference-league {
+  background-color: #00cc66;
+  color: white;
+}
+
+.status-badge.relegation {
+  background-color: #dc3545;
+  color: white;
+}
+
+.standings-table .points {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--accent-color);
+}
+
+.standings-table .positive {
+  color: var(--success-color);
+  font-weight: 500;
+}
+
+.standings-table .negative {
+  color: var(--error-color);
+  font-weight: 500;
+}
+
+/* Position-based styling */
+.position-champions-league {
+  background-color: rgba(0, 102, 204, 0.1);
+  border-left: 4px solid #0066cc;
+}
+
+.position-europa-league {
+  background-color: rgba(255, 102, 0, 0.1);
+  border-left: 4px solid #ff6600;
+}
+
+.position-conference-league {
+  background-color: rgba(0, 204, 102, 0.1);
+  border-left: 4px solid #00cc66;
+}
+
+.position-relegation {
+  background-color: rgba(220, 53, 69, 0.1);
+  border-left: 4px solid #dc3545;
+}
+
+/* Competition Tabs */
+.competition-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--primary-color);
+  background: transparent;
+  color: var(--primary-color);
   font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 120px;
 }
 
-.team-city {
+.tab-button:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.tab-button.active {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Standings Legend */
+.standings-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.9rem;
   color: var(--text-secondary);
 }
 
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.legend-color.champions-league {
+  background-color: #0066cc;
+}
+
+.legend-color.europa-league {
+  background-color: #ff6600;
+}
+
+.legend-color.conference-league {
+  background-color: #00cc66;
+}
+
+.legend-color.relegation {
+  background-color: #dc3545;
+}
+
+/* Loading and Error States */
+.loading,
+.error {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.error {
+  color: #dc3545;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-  .laliga {
-    padding: 1rem;
+  .laliga-hero {
+    padding: 3rem 1rem;
   }
 
-  .page-header h1 {
+  .laliga-logo-large {
+    font-size: 4rem;
+  }
+
+  .laliga-hero h1 {
     font-size: 2rem;
   }
 
-  .page-header p {
+  .laliga-hero p {
     font-size: 1rem;
   }
 
-  .competition-stats {
+  .laliga-content {
+    padding: 0 1rem;
+  }
+
+  .laliga-stats {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
@@ -167,34 +352,55 @@
     font-size: 2rem;
   }
 
-  .competition-description {
+  .laliga-info {
     padding: 1.5rem;
   }
 
-  .competition-description h2 {
+  .laliga-info h2 {
     font-size: 1.5rem;
   }
 
-  .teams-section h2 {
-    font-size: 2rem;
+  .competition-tabs {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
-  .teams-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .tab-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    min-width: 100px;
   }
 
-  .team-card {
+  .standings-table-container {
     padding: 1rem;
   }
 
-  .team-logo {
-    font-size: 2rem;
-    width: 50px;
-    height: 50px;
+  .standings-table {
+    font-size: 0.8rem;
   }
 
-  .team-name {
-    font-size: 1rem;
+  .standings-table th,
+  .standings-table td {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .team-logo-small {
+    width: 20px;
+    height: 20px;
+  }
+
+  .status-badge {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .legend-items {
+    grid-template-columns: 1fr;
+  }
+
+  .standings-legend {
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
   }
 }

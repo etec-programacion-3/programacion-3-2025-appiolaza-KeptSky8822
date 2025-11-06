@@ -6,6 +6,7 @@ const { fetchMatches } = require('./fetchMatches');
 const { syncStandings } = require('./syncStandings');
 const { fetchPlayers } = require('./fetchPlayers');
 const fetchScorers = require('./fetchScorers');
+const sequelize = require('../config/database'); // 👈 Asegurate de tener esto
 
 class AutoUpdateService {
   constructor() {
@@ -28,12 +29,14 @@ class AutoUpdateService {
       console.log('📊 Sincronizando competiciones...');
       await fetchCompetitions();
 
-      // 2. Sincronizar equipos de las 4 competiciones principales
+      // 2. Sincronizar equipos de las 6 competiciones principales
       const competitions = [
         { code: 'CL', name: 'UEFA Champions League', season: 2025 },
         { code: 'PD', name: 'La Liga', season: 2025 },
-        { code: 'CLI', name: 'CONMEBOL Libertadores', season: 2025 },
-        { code: 'PL', name: 'Premier League', season: 2025 }
+        { code: 'PL', name: 'Premier League', season: 2025 },
+        { code: 'BL1', name: 'Bundesliga', season: 2025 },
+        { code: 'SA', name: 'Serie A', season: 2025 },
+        { code: 'FL1', name: 'Ligue 1', season: 2025 }
       ];
 
       for (const comp of competitions) {
@@ -47,17 +50,19 @@ class AutoUpdateService {
         await fetchMatches(comp.code, comp.season);
       }
 
-      // 4. Sincronizar posiciones (solo Champions League por ahora)
-      console.log('🏆 Sincronizando posiciones de Champions League...');
-      await syncStandings('CL');
+      // 4. Sincronizar posiciones de todas las ligas principales
+      for (const comp of competitions) {
+        console.log(`🏆 Sincronizando posiciones de ${comp.name}...`);
+        await syncStandings(comp.code);
+      }
 
-      // 5. Sincronizar jugadores de equipos de Champions League
+      // 5. Sincronizar jugadores de Champions League
       console.log('👥 Sincronizando jugadores de Champions League...');
-      await fetchPlayers('CL', 2025);
+      await fetchPlayers(comp.code, comp.season);
 
       // 6. Sincronizar goleadores de Champions League
-      console.log('⚽ Sincronizando goleadores de Champions League...');
-      await fetchScorers(2001, '2024'); // Competition ID 2001 for Champions League
+      console.log('⚽ Sincronizando goleadores de Todas las competencias...');
+      await fetchScorers(comp.code, comp.season); // Competition ID 2001 for Champions League
 
       console.log('✅ Sincronización automática completada exitosamente!');
     } catch (error) {
@@ -75,17 +80,29 @@ class AutoUpdateService {
     console.log('⚡ Iniciando sincronización rápida...');
 
     try {
-      // Sincronizar posiciones de Champions League
-      await syncStandings('CL');
+      // Dropear y recrear la tabla competition_standings
+      console.log('🗑️ Eliminando tabla competition_standings...');
+      await sequelize.query('DROP TABLE IF EXISTS competition_standings');
+      const CompetitionStanding = require('../models/CompetitionStanding');
+      await CompetitionStanding.sync();
+      console.log('✅ Tabla competition_standings recreada.');
 
-      // Sincronizar partidos de todas las competiciones principales
+      // Sincronizar posiciones de todas las ligas principales
       const competitions = [
         { code: 'CL', name: 'UEFA Champions League', season: 2025 },
         { code: 'PD', name: 'La Liga', season: 2025 },
-        { code: 'CLI', name: 'CONMEBOL Libertadores', season: 2025 },
-        { code: 'PL', name: 'Premier League', season: 2025 }
+        { code: 'PL', name: 'Premier League', season: 2025 },
+        { code: 'BL1', name: 'Bundesliga', season: 2025 },
+        { code: 'SA', name: 'Serie A', season: 2025 },
+        { code: 'FL1', name: 'Ligue 1', season: 2025 }
       ];
 
+      for (const comp of competitions) {
+        console.log(`🏆 Sincronizando posiciones de ${comp.name}...`);
+        await syncStandings(comp.code);
+      }
+
+      // Sincronizar partidos de todas las competiciones principales
       for (const comp of competitions) {
         console.log(`⚽ Sincronizando partidos de ${comp.name}...`);
         await fetchMatches(comp.code, comp.season);
@@ -107,7 +124,7 @@ class AutoUpdateService {
   startScheduler() {
     console.log('⏰ Iniciando programador automático de actualizaciones...');
 
-    // Sincronización completa cada 6 horas (a las 2:00, 8:00, 14:00, 20:00)
+    // Sincronización completa cada 6 horas
     const fullSyncJob = cron.schedule('0 2,8,14,20 * * *', () => {
       console.log('🕐 Ejecutando sincronización completa programada...');
       this.syncAllCompetitions();

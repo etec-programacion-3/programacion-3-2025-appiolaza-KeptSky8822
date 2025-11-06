@@ -6,6 +6,25 @@ async function syncStandings(competitionCode) {
   try {
     console.log(`🔄 Sincronizando posiciones de ${competitionCode}...`);
 
+    // Determinar el competition_id basado en el código
+    let competitionId;
+    switch (competitionCode) {
+      case 'CL': competitionId = 2001; break; // Champions League
+      case 'PD': competitionId = 2014; break; // La Liga
+      case 'PL': competitionId = 2021; break; // Premier League
+      case 'BL1': competitionId = 2002; break; // Bundesliga
+      case 'SA': competitionId = 2019; break; // Serie A
+      case 'FL1': competitionId = 2015; break; // Ligue 1
+      default: competitionId = 2001; // Valor por defecto
+    }
+
+    // Eliminar todos los registros existentes para esta competición antes de sincronizar
+    await sequelize.query('DELETE FROM competition_standings WHERE competition_id = ?', {
+      replacements: [competitionId]
+    });
+    console.log(`🗑️ Eliminados registros anteriores para competición ${competitionId}`);
+
+    // Llamar a la API para obtener la tabla de posiciones
     const response = await apiClient.get(`/competitions/${competitionCode}/standings`);
     const standings = response.data.standings[0].table;
 
@@ -25,22 +44,12 @@ async function syncStandings(competitionCode) {
         if (teams.length > 0) {
           const dbTeamId = teams[0].id;
 
-          // Determinar el competition_id basado en el código
-          let competitionId;
-          switch (competitionCode) {
-            case 'CL': competitionId = 2001; break; // Champions League
-            case 'PD': competitionId = 2014; break; // La Liga
-            case 'CLI': competitionId = 2013; break; // Libertadores
-            case 'PL': competitionId = 2021; break; // Premier League
-            default: competitionId = 2001;
-          }
-
-          // Insertar o actualizar posición
+          // Insertar nueva posición
           await sequelize.query(`
-            INSERT OR REPLACE INTO competition_standings
+            INSERT INTO competition_standings
             (competition_id, team_id, position, played_games, form, won, draw, lost, points,
-             goals_for, goals_against, goal_difference, phase, group_name, createdAt, updatedAt)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+             goals_for, goals_against, goal_difference, phase, group_name, last_updated, createdAt, updatedAt)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'), datetime('now'))
           `, {
             replacements: [
               competitionId,
@@ -55,8 +64,8 @@ async function syncStandings(competitionCode) {
               standing.goalsFor,
               standing.goalsAgainst,
               standing.goalDifference,
-              'GROUP_STAGE',
-              'A', // Default group
+              'REGULAR_SEASON',
+              null // No hay grupo en ligas nacionales
             ]
           });
 

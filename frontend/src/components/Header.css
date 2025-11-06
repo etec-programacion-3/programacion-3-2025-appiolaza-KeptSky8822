@@ -147,12 +147,12 @@
   border-radius: 4px;
   transition: all 0.3s ease;
   position: relative;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 55px;
 }
 
 .nav-link:hover {
@@ -221,6 +221,53 @@
   color: var(--accent-color);
 }
 
+/* User Menu Styles */
+.user-menu-container {
+  position: relative;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  z-index: 1000;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.user-info {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--light-bg);
+}
+
+.user-name {
+  font-weight: 500;
+  color: var(--text-primary);
+  display: block;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: var(--light-bg);
+  color: var(--error-color);
+}
+
 /* Mobile Menu Toggle - Removed as navigation is simplified */
 
 /* Responsive Design */
@@ -261,9 +308,9 @@
   }
 
   .nav-link {
-    width: 45px;
-    height: 45px;
-    font-size: 1.3rem;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
   }
 
   .auth-buttons {
