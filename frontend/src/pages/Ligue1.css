@@ -1,34 +1,43 @@
 /* Ligue 1 Page Styles */
-.ligue-1 {
+.ligue1-page {
   min-height: calc(100vh - 200px);
-  padding: 2rem;
 }
 
-.page-header {
+.ligue1-hero {
   text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #0055a4 0%, #003d7a 100%);
+  color: white;
   margin-bottom: 3rem;
 }
 
-.page-header h1 {
-  font-size: 3rem;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  font-weight: bold;
+.ligue1-logo-large {
+  font-size: 6rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
-.page-header p {
+.ligue1-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.ligue1-hero p {
   font-size: 1.2rem;
-  color: var(--text-secondary);
+  opacity: 0.9;
   max-width: 600px;
   margin: 0 auto;
 }
 
-.competition-info-section {
+.ligue1-content {
   max-width: 1200px;
-  margin: 0 auto 4rem auto;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-.competition-stats {
+.ligue1-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
@@ -45,7 +54,7 @@
 }
 
 .stat-card h3 {
-  color: var(--accent-color);
+  color: #0055a4;
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
@@ -57,7 +66,7 @@
   font-weight: 500;
 }
 
-.competition-description {
+.ligue1-info {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 2rem;
@@ -65,96 +74,577 @@
   border: 1px solid var(--border-color);
 }
 
-.competition-description h2 {
+.ligue1-info h2 {
   color: var(--text-primary);
   font-size: 2rem;
   margin-bottom: 1.5rem;
 }
 
-.competition-description p {
+.ligue1-info p {
   color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 1rem;
   font-size: 1.1rem;
 }
 
-.teams-section {
-  max-width: 1200px;
-  margin: 0 auto;
+/* Standings Table Styles */
+.standings-section {
+  margin-bottom: 3rem;
 }
 
-.teams-section h2 {
-  text-align: center;
-  font-size: 2.5rem;
+.standings-section h2 {
   color: var(--text-primary);
+  font-size: 2rem;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
-.teams-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.team-card {
+.standings-table-container {
   background: var(--card-bg);
   border-radius: 12px;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  padding: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--border-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow-x: auto;
 }
 
-.team-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
 }
 
-.team-logo {
-  font-size: 2.5rem;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-secondary);
-  border-radius: 50%;
+.standings-table th,
+.standings-table td {
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.standings-table th {
+  background-color: #0055a4;
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.standings-table tbody tr:hover {
+  background-color: var(--light-bg);
+}
+
+.standings-table .position {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.standings-table .team-name {
+  text-align: left;
+  font-weight: 500;
+  max-width: 200px;
 }
 
 .team-info {
-  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.team-name {
+.team-logo-small {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.status-cell {
+  text-align: center;
+}
+
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.champions {
+  background-color: #0066cc;
+  color: white;
+}
+
+.status-badge.championsplayoff {
+  background-color: #20c997;
+  color: white;
+}
+
+.status-badge.europa {
+  background-color: #fd7e14;
+  color: white;
+}
+
+.status-badge.conference {
+  background-color: #0dcaf0;
+  color: #212529;
+}
+
+.status-badge.playoff {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.status-badge.relegation {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.standings-table .points {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #0055a4;
+}
+
+.standings-table .positive {
+  color: var(--success-color);
+  font-weight: 500;
+}
+
+.standings-table .negative {
+  color: var(--error-color);
+  font-weight: 500;
+}
+
+/* Position-based styling */
+.position-champions {
+  background-color: rgba(25, 135, 84, 0.1);
+  border-left: 4px solid #0066cc;
+}
+
+.position-championsplayoff {
+  background-color: rgba(32, 201, 151, 0.1);
+  border-left: 4px solid #20c997;
+}
+
+.position-europa {
+  background-color: rgba(253, 126, 20, 0.1);
+  border-left: 4px solid #fd7e14;
+}
+
+.position-conference {
+  background-color: rgba(13, 202, 240, 0.1);
+  border-left: 4px solid #0dcaf0;
+}
+
+.position-playoff {
+  background-color: rgba(255, 193, 7, 0.1);
+  border-left: 4px solid #ffc107;
+}
+
+.position-relegation {
+  background-color: rgba(220, 53, 69, 0.1);
+  border-left: 4px solid var(--error-color);
+}
+
+/* Competition Tabs */
+.competition-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #0055a4;
+  background: transparent;
+  color: #0055a4;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 120px;
+}
+
+.tab-button:hover {
+  background: #0055a4;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.tab-button.active {
+  background: #0055a4;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Matches Section */
+.matches-section {
+  margin-bottom: 3rem;
+}
+
+.matches-section h2 {
+  color: var(--text-primary);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.matches-filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button {
+  background: #0055a4;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-button:hover:not(:disabled) {
+  background: #003d7a;
+  transform: scale(1.1);
+}
+
+.nav-button:disabled {
+  background: var(--text-secondary);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.current-jornada {
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 0.25rem;
+  min-width: 200px;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  background: var(--light-bg);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
 }
 
-.team-city {
+.matches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.match-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.match-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
   font-size: 0.9rem;
   color: var(--text-secondary);
 }
 
+.match-date {
+  font-weight: 500;
+}
+
+.match-jornada {
+  background: #0055a4;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.match-teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.home-team {
+  justify-content: flex-start;
+}
+
+.away-team {
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
+
+.team-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 200px;
+}
+
+.team-logo-match {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.team-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.team-score {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0055a4;
+  min-width: 30px;
+  text-align: center;
+}
+
+.vs-separator {
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 1rem;
+}
+
+.match-status {
+  text-align: center;
+}
+
+.status-badge.finished {
+  background-color: var(--success-color);
+}
+
+.status-badge.live {
+  background-color: var(--error-color);
+  animation: pulse 2s infinite;
+}
+
+.status-badge.scheduled {
+  background-color: var(--text-secondary);
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Top Scorers Section */
+.top-scorers-section {
+  margin-bottom: 3rem;
+}
+
+.top-scorers-section h2 {
+  color: var(--text-primary);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.scorers-table-container {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+}
+
+.scorers-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.scorers-table th,
+.scorers-table td {
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.scorers-table th {
+  background-color: #0055a4;
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.scorers-table tbody tr:hover {
+  background-color: var(--light-bg);
+}
+
+.scorers-table .position {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.scorers-table .player-name {
+  text-align: left;
+  font-weight: 500;
+  max-width: 200px;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.player-photo-small {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.scorers-table .team-name {
+  text-align: left;
+  max-width: 200px;
+}
+
+.scorers-table .goals {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #0055a4;
+}
+
+.scorers-table .assists {
+  color: var(--text-secondary);
+}
+
+/* Standings Legend */
+.standings-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.legend-color.champions {
+  background-color: #0066cc;
+}
+
+.legend-color.championsplayoff {
+  background-color: #20c997;
+}
+
+.legend-color.europa {
+  background-color: #fd7e14;
+}
+
+.legend-color.conference {
+  background-color: #0dcaf0;
+}
+
+.legend-color.playoff {
+  background-color: #ffc107;
+}
+
+.legend-color.relegation {
+  background-color: var(--error-color);
+}
+
+/* Loading and Error States */
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  margin: 1rem 0;
+}
+
+.loading p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.error p {
+  color: var(--error-color);
+  font-size: 1.1rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-  .ligue-1 {
-    padding: 1rem;
+  .ligue1-hero {
+    padding: 3rem 1rem;
   }
 
-  .page-header h1 {
+  .ligue1-logo-large {
+    font-size: 4rem;
+  }
+
+  .ligue1-hero h1 {
     font-size: 2rem;
   }
 
-  .page-header p {
+  .ligue1-hero p {
     font-size: 1rem;
   }
 
-  .competition-stats {
+  .ligue1-content {
+    padding: 0 1rem;
+  }
+
+  .ligue1-stats {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
@@ -167,34 +657,79 @@
     font-size: 2rem;
   }
 
-  .competition-description {
+  .ligue1-info {
     padding: 1.5rem;
   }
 
-  .competition-description h2 {
+  .ligue1-info h2 {
     font-size: 1.5rem;
   }
 
-  .teams-section h2 {
-    font-size: 2rem;
+  .competition-tabs {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
-  .teams-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .tab-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    min-width: 100px;
   }
 
-  .team-card {
+  .matches-filter {
+    gap: 0.5rem;
+  }
+
+  .nav-button {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .current-jornada {
+    min-width: 150px;
+    font-size: 1rem;
+  }
+
+  .matches-filter {
+    flex-direction: column;
+    gap: 0.5rem;
     padding: 1rem;
   }
 
-  .team-logo {
-    font-size: 2rem;
-    width: 50px;
-    height: 50px;
+  .matches-filter select {
+    width: 100%;
+    max-width: 200px;
   }
 
-  .team-name {
-    font-size: 1rem;
+  .match-teams {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .home-team, .away-team {
+    justify-content: center !important;
+    flex-direction: row !important;
+  }
+
+  .vs-separator {
+    margin: 0.5rem 0;
+  }
+
+  .top-scorers-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .scorers-table-container {
+    padding: 1rem;
+  }
+
+  .scorers-table {
+    font-size: 0.8rem;
+  }
+
+  .player-photo-small {
+    width: 24px;
+    height: 24px;
   }
 }

@@ -6,10 +6,12 @@ async function fetchCompetitions() {
   try {
     // Solo sincronizar las 4 competiciones específicas
     const targetCompetitions = [
-      { code: 'CL', name: 'UEFA Champions League' },
-      { code: 'PD', name: 'La Liga' },
-      { code: 'CLI', name: 'CONMEBOL Libertadores' },
-      { code: 'PL', name: 'Premier League' }
+        { code: 'CL', name: 'UEFA Champions League', season: 2025 },
+        { code: 'PD', name: 'La Liga', season: 2025 },
+        { code: 'PL', name: 'Premier League', season: 2025 },
+        { code: 'BL1', name: 'Bundesliga', season: 2025 },
+        { code: 'SA', name: 'Serie A', season: 2025 },
+        { code: 'FL1', name: 'Ligue 1', season: 2025 }
     ];
 
     for (const comp of targetCompetitions) {

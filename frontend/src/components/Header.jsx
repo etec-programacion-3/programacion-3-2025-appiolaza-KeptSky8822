@@ -1,12 +1,38 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Cambiar a true para simular usuario logueado
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  // Verificar si hay un usuario logueado al cargar el componente
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      // Aquí puedes verificar si hay un token en localStorage o sessionStorage
+      const token = localStorage.getItem('authToken');
+      const user = localStorage.getItem('user');
+      setIsLoggedIn(!!token && !!user);
+    };
+
+    checkLoginStatus();
+
+    // Escuchar cambios en localStorage (para cuando se hace login desde otras páginas)
+    const handleStorageChange = () => {
+      checkLoginStatus();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -36,6 +62,28 @@ const Header = () => {
       case 'player': return '👤';
       default: return '🔍';
     }
+  };
+
+  const handleLogin = () => {
+    // Simular login exitoso (aquí iría la lógica real de autenticación)
+    localStorage.setItem('authToken', 'fake-token');
+    localStorage.setItem('user', JSON.stringify({ username: 'Usuario', email: 'usuario@email.com' }));
+    setIsLoggedIn(true);
+    // Forzar re-render del header
+    window.dispatchEvent(new Event('storage'));
+    navigate('/');
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+    setUserMenuOpen(false);
+    navigate('/');
+  };
+
+  const toggleUserMenu = () => {
+    setUserMenuOpen(!userMenuOpen);
   };
 
   return (
@@ -74,9 +122,30 @@ const Header = () => {
           <ul className="nav-list">
             <li className="nav-item">
               {isLoggedIn ? (
-                <button className="nav-link user-btn" title="Usuario">
-                  👤
-                </button>
+                <div className="user-menu-container">
+                  <button
+                    className="nav-link user-btn"
+                    title="Usuario"
+                    onClick={toggleUserMenu}
+                  >
+                    👤
+                  </button>
+                  {userMenuOpen && (
+                    <div className="user-dropdown">
+                      <div className="user-info">
+                        <span className="user-name">
+                          {JSON.parse(localStorage.getItem('user') || '{}').username || 'Usuario'}
+                        </span>
+                      </div>
+                      <button
+                        className="logout-btn"
+                        onClick={handleLogout}
+                      >
+                        🚪 Cerrar Sesión
+                      </button>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <div className="auth-buttons">
                   <Link to="/login" className="auth-btn login-btn">

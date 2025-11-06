@@ -1,5 +1,6 @@
 // app.js
 const express = require("express");
+const cors = require('cors');
 const { sequelize } = require("./src/models");
 const competicion_Routes = require("./src/routes/competicion_routes");
 const equipo_Routes = require('./src/routes/equipo_routes');
@@ -11,8 +12,14 @@ const autoUpdateService = require('./src/services/autoUpdateService');
 require('dotenv').config();
 
 
+
 const app = express();
+app.use(cors({
+  origin: 'http://localhost:5173' // 👈 el puerto donde corre Vite
+}));
+
 app.use(express.json());
+
 
 // Usa las rutas de competiciones
 app.use("/api/competitions", competicion_Routes);
@@ -66,7 +73,7 @@ async function main() {
     await sequelize.authenticate();
     console.log("✅ Conectado a la base de datos");
 
-    await sequelize.sync({ alter: true }); // crea/actualiza las tablas
+    await sequelize.sync({}); // crea/actualiza las tablas
     console.log("✅ Modelos sincronizados");
 
     app.listen(3000, () => {
