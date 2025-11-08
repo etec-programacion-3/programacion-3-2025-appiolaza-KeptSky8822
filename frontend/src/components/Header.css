@@ -36,6 +36,7 @@
   max-width: 500px;
   margin: 0 2rem;
   position: relative;
+  z-index: 100; /* Asegura que esté por encima de otros elementos */
 }
 
 .search-input-wrapper {
@@ -66,21 +67,22 @@
   transform: translateY(-50%);
   font-size: 1.2rem;
   color: var(--text-secondary);
+  pointer-events: none;
 }
 
 /* Search Results */
 .search-results {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 8px);
   left: 0;
   right: 0;
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  max-height: 300px;
+  max-height: 400px;
   overflow-y: auto;
-  z-index: 1000;
-  margin-top: 0.5rem;
+  z-index: 9999; /* Muy alto para estar sobre todo */
+  display: block !important; /* Forzar visualización */
 }
 
 .search-result-item {
@@ -90,6 +92,9 @@
   border-bottom: 1px solid var(--border-color);
   cursor: pointer;
   transition: background-color 0.2s ease;
+  text-decoration: none;
+  color: var(--text-primary);
+  gap: 0.75rem;
 }
 
 .search-result-item:hover {
@@ -101,25 +106,57 @@
 }
 
 .result-icon {
-  font-size: 1.2rem;
-  margin-right: 0.75rem;
-  width: 20px;
-  text-align: center;
+  font-size: 1.5rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.result-team-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.result-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0; /* Permite que el texto se trunque */
 }
 
 .result-text {
-  flex: 1;
   font-weight: 500;
   color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.result-type {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  text-transform: capitalize;
-  background-color: var(--light-bg);
-  padding: 0.2rem 0.5rem;
+.result-team-name {
+  font-size: 0.75rem;
+  color: #10b981;
+  opacity: 0.8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.result-type-badge {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+  background: #10b981;
+  color: white;
   border-radius: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* Navigation */
@@ -182,6 +219,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .auth-btn:hover {
@@ -268,8 +307,6 @@
   color: var(--error-color);
 }
 
-/* Mobile Menu Toggle - Removed as navigation is simplified */
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .header-container {
@@ -321,5 +358,9 @@
   .auth-btn {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
+  }
+  
+  .search-results {
+    max-height: 300px;
   }
 }

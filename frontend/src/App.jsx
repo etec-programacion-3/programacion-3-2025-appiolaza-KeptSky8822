@@ -15,12 +15,15 @@ import Bundesliga from './pages/Bundesliga';
 import Ligue1 from './pages/Ligue1';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import PlayerDetail from './pages/PlayerDetail';
+import TeamDetail from './pages/TeamDetail';
 import './App.css';
+
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App"> 
         <Header />
         <main className="main-content">
           <Routes>
@@ -37,6 +40,9 @@ function App() {
             <Route path="/ligue-1" element={<Ligue1 />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/players/:id" element={<PlayerDetail />} />
+            <Route path="/teams/:id" element={<TeamDetail />} />
           </Routes>
         </main>
         <Footer />
