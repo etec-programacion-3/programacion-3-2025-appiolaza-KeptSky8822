@@ -53,7 +53,7 @@ const Register = () => {
       };
 
       // Llamar a la API para crear usuario
-      const response = await apiService.createUser(userData);
+      const response = await apiService.register(userData);
 
       setSuccess('Cuenta creada exitosamente! Redirigiendo al login...');
       console.log('Usuario creado:', response);
@@ -72,8 +72,12 @@ const Register = () => {
       }, 2000);
 
     } catch (err) {
-      setError('Error al crear la cuenta: ' + (err.message || 'Inténtalo de nuevo'));
-      console.error('Register error:', err);
+        // Si el backend devuelve un mensaje personalizado, se mostrará acá
+        if (err.message && err.message !== 'Failed to fetch') {
+          setError(err.message);
+        } else {
+          setError('Error al crear la cuenta. Intenta nuevamente.');
+        }
     } finally {
       setLoading(false);
     }

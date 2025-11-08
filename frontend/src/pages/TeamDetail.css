@@ -113,6 +113,26 @@ body:has(.team-detail-page) {
   50% { transform: scale(1.1); opacity: 0.8; }
 }
 
+/* ⭐ ESTILOS PARA EL BOTÓN DE FAVORITOS ⭐ */
+.team-favorite-btn-wrapper {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  padding: 0.5rem;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.team-favorite-btn-wrapper:hover {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(251, 191, 36, 0.5);
+  transform: scale(1.05);
+}
+
 .team-logo-section {
   position: relative;
   z-index: 1;
@@ -394,7 +414,7 @@ body:has(.team-detail-page) {
     padding: 2rem 1.5rem;
   }
 
-.team-main-logo {
+  .team-main-logo {
     width: 180px;
     height: 180px;
     object-fit: contain;
@@ -402,7 +422,7 @@ body:has(.team-detail-page) {
     padding: 0;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
-}
+  }
 
   .team-main-name {
     font-size: 2rem;
@@ -427,5 +447,12 @@ body:has(.team-detail-page) {
 
   .team-squad-count {
     align-self: flex-start;
+  }
+
+  /* Responsive para el botón de favoritos */
+  .team-favorite-btn-wrapper {
+    top: 1rem;
+    right: 1rem;
+    padding: 0.4rem;
   }
 }

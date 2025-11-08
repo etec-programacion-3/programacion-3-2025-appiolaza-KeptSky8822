@@ -185,5 +185,17 @@ Player.findByNationality = function(nationality) {
     order: [['last_name', 'ASC']]
   });
 };
+Player.associate = (models) => {
+  Player.belongsToMany(models.User, {
+    through: models.FavoritePlayer,
+    foreignKey: 'playerId',
+    otherKey: 'userId',
+    as: 'fans'
+  });
+  Player.hasMany(models.FavoritePlayer, { foreignKey: 'playerId' });
+};
+
+
+
 
 module.exports = Player;

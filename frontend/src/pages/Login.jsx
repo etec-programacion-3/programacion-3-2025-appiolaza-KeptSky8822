@@ -27,33 +27,30 @@ const Login = () => {
     setError('');
 
     try {
-      // Aquí deberías implementar la lógica de login real
-      // Por ahora, solo simulamos que funciona
-      console.log('Login attempt:', formData);
+      console.log('Iniciando sesión con:', formData);
 
-      // Simular una llamada a la API (reemplaza con tu endpoint real de login)
-      // const response = await apiService.login(formData);
+      // Llamada real a tu backend
+      const response = await apiService.login(formData);
 
-      // Simulación de éxito - guardar en localStorage
-      localStorage.setItem('authToken', 'fake-token-' + Date.now());
-      localStorage.setItem('user', JSON.stringify({
-        username: formData.email.split('@')[0], // Usar parte del email como username
-        email: formData.email
-      }));
+      // Guardar token y usuario en localStorage
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
 
-      // Forzar actualización del header
+      // Notificar al header que cambió el estado de sesión
       window.dispatchEvent(new Event('storage'));
 
+      // Redirigir al inicio después de 1 segundo
       setTimeout(() => {
         navigate('/');
       }, 1000);
 
     } catch (err) {
-      setError('Error al iniciar sesión: ' + (err.message || 'Credenciales incorrectas'));
-      console.error('Login error:', err);
+      console.error('Error en login:', err);
+      setError(('Usuario o contraseña incorrectos. Inténtalo nuevamente.'));
     } finally {
       setLoading(false);
     }
+
   };
 
   return (

@@ -15,6 +15,7 @@ const Match = require('./partido');
 const MatchEvent = require('./partidoevent');
 const User = require('./usuario');
 const FavoriteTeam = require('./equipos_favoritos_usuarios');
+const FavoritePlayer = require('./jugadores_favoritos_usuarios');
 
 // =============================
 // Definición de Relaciones
@@ -65,7 +66,13 @@ PlayerStatistics.belongsTo(Competition, { foreignKey: 'id_competition' });
 
 // Usuario -> Favoritos (relación muchos a muchos con equipos)
 User.belongsToMany(Team, { through: FavoriteTeam, foreignKey: 'user_id' , as: 'favoriteTeams'});
-Team.belongsToMany(User, { through: FavoriteTeam, foreignKey: 'team_id' ,as: 'fans'});
+Team.belongsToMany(User, { through: FavoriteTeam, foreignKey: 'team_id' ,as: 'teamfans'});
+
+// Usuarios -> Jugadores favoritos
+User.belongsToMany(Player, { through: FavoritePlayer, foreignKey: 'userId', as: 'favoritePlayers' });
+Player.belongsToMany(User, { through: FavoritePlayer, foreignKey: 'playerId', as: 'playerfans' });
+
+
 
 // Exportar
 module.exports = {
@@ -80,4 +87,5 @@ module.exports = {
   MatchEvent,
   User,
   FavoriteTeam,
+  FavoritePlayer,
 };

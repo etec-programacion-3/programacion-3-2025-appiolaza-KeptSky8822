@@ -19,7 +19,9 @@ class ApiService {
     try {
       const response = await fetch(url, config);
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json().catch(() => ({}));
+        const message = errorData.message || `HTTP error! status: ${response.status}`;
+        throw new Error(message);
       }
       return await response.json();
     } catch (error) {
@@ -56,6 +58,85 @@ class ApiService {
       method: 'DELETE',
     });
   }
+  // Auth endpoints
+async register(userData) {
+  return this.request('/auth/register', {
+    method: 'POST',
+    body: JSON.stringify(userData),
+  });
+}
+
+async login(credentials) {
+  return this.request('/auth/login', {
+    method: 'POST',
+    body: JSON.stringify(credentials),
+  });
+}
+
+async getCurrentUser(token) {
+  return this.request('/auth/me', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+// Favorites endpoints
+async getUserFavorites(userId, token) {
+  return this.request(`/users/${userId}/favorites`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+async addFavoriteTeam(userId, teamId, token) {
+  return this.request(`/users/${userId}/favorites`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ team_id: teamId }),
+  });
+}
+
+async removeFavoriteTeam(userId, teamId, token) {
+  return this.request(`/users/${userId}/favorites/${teamId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+
+// Obtener favoritos del usuario logueado
+async getUserFavoritePlayers(token) {
+  return this.request(`/favorite-players`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+// Agregar jugador favorito
+async addFavoritePlayer(playerId, token) {
+  return this.request(`/favorite-players`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ playerId }),
+  });
+}
+
+// Eliminar favorito por ID
+async removeFavoritePlayer(favoriteId, token) {
+  return this.request(`/favorite-players/${favoriteId}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+
+
+
 
   // Teams endpoints
   async getTeams() {
@@ -121,5 +202,6 @@ class ApiService {
     return this.request(`/match-events/${id}`);
   }
 }
+  
 
 export default new ApiService();

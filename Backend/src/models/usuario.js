@@ -81,5 +81,14 @@ User.associate = (models) => {
   });
 };
 
+User.associate = (models) => {
+  User.belongsToMany(models.Player, {
+    through: models.FavoritePlayer,
+    foreignKey: 'userId',
+    otherKey: 'playerId',
+    as: 'favoritePlayers'
+  });
+  User.hasMany(models.FavoritePlayer, { foreignKey: 'userId' });
+};
 
 module.exports = User;
