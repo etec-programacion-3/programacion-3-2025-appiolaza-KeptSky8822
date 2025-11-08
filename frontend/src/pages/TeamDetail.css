@@ -1,0 +1,431 @@
+/* Página principal */
+.team-detail-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+  background: #0a0a0a;
+}
+
+/* Asegurar que el contenedor padre también sea oscuro */
+body:has(.team-detail-page) {
+  background: #0a0a0a;
+}
+
+.team-detail-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0a0a0a;
+  z-index: -1;
+}
+
+/* Loading */
+.team-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1rem;
+  color: #10b981;
+}
+
+.team-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(16, 185, 129, 0.2);
+  border-top: 4px solid #10b981;
+  border-radius: 50%;
+  animation: team-rotate 1s linear infinite;
+}
+
+@keyframes team-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error */
+.team-error {
+  text-align: center;
+  padding: 3rem;
+  background: #1f2937;
+  border-radius: 16px;
+  color: white;
+}
+
+.team-error-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.team-error h2 {
+  color: #10b981;
+  margin-bottom: 1rem;
+}
+
+.team-back-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #10b981;
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.team-back-btn:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+/* Tarjeta principal del equipo */
+.team-main-card {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 24px;
+  padding: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.team-main-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: team-pulse 8s ease-in-out infinite;
+}
+
+@keyframes team-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.team-logo-section {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1.5rem;
+}
+
+.team-main-logo {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  background: white;
+  border-radius: 50%;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border: 5px solid rgba(255, 255, 255, 0.3);
+}
+
+.team-main-name {
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.team-short-name {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 1rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.team-code-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 1rem;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+/* Grid de información */
+.team-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.team-info-card {
+  background: #1f2937;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.team-info-card:hover {
+  transform: translateY(-5px);
+  border-color: #10b981;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
+}
+
+.team-info-icon {
+  width: 60px;
+  height: 60px;
+  background: #10b981;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.team-info-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.team-info-label {
+  font-size: 0.75rem;
+  color: #10b981;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.team-info-value {
+  font-size: 1.25rem;
+  color: white;
+  font-weight: 600;
+}
+
+.team-info-link {
+  font-size: 1.1rem;
+  color: #10b981;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.team-info-link:hover {
+  color: #34d399;
+  text-decoration: underline;
+}
+
+/* Sección de plantilla */
+.team-squad-section {
+  margin-top: 3rem;
+}
+
+.team-section-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.team-squad-count {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #10b981;
+  background: #1f2937;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.team-players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.team-player-card {
+  background: #1f2937;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.team-player-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #059669);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.team-player-card:hover::before {
+  transform: scaleX(1);
+}
+
+.team-player-card:hover {
+  transform: translateY(-8px);
+  border-color: #10b981;
+  box-shadow: 0 12px 28px rgba(16, 185, 129, 0.25);
+}
+
+.team-player-photo-wrapper {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.team-player-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #10b981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.team-player-number {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  background: #10b981;
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  border: 3px solid #1f2937;
+}
+
+.team-player-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.team-player-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.team-player-position {
+  display: inline-block;
+  background: #10b981;
+  color: #1f2937;
+  padding: 0.35rem 0.85rem;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.team-player-nationality {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* Sin jugadores */
+.team-no-players {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #1f2937;
+  border-radius: 16px;
+  color: #9ca3af;
+}
+
+.team-no-players-icon {
+  font-size: 5rem;
+  display: block;
+  margin-bottom: 1rem;
+  opacity: 0.4;
+}
+
+.team-no-players p {
+  font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .team-detail-page {
+    padding: 1rem;
+  }
+
+  .team-main-card {
+    padding: 2rem 1.5rem;
+  }
+
+.team-main-logo {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    background: transparent;
+    padding: 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
+  .team-main-name {
+    font-size: 2rem;
+  }
+
+  .team-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .team-players-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+
+  .team-section-title {
+    font-size: 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .team-squad-count {
+    align-self: flex-start;
+  }
+}
