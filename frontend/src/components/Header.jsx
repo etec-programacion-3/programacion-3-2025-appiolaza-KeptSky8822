@@ -9,26 +9,35 @@ const Header = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const navigate = useNavigate();
 
+  const handleUserClick = () => {
+    navigate('/usuario'); // 👈 redirige al perfil
+  };
+
+
+
   // Verificar si hay un usuario logueado al cargar el componente
   useEffect(() => {
-    const checkLoginStatus = () => {
-      const token = localStorage.getItem('authToken');
-      const user = localStorage.getItem('user');
-      setIsLoggedIn(!!token && !!user);
-    };
+  // Al cargar, leer datos del localStorage
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
 
-    checkLoginStatus();
+    setIsLoggedIn(!!token && !!user);
 
-    const handleStorageChange = () => {
-      checkLoginStatus();
+    // Escuchar cambios en localStorage (login / logout)
+    const handleStorageChange = (event) => {
+      if (event.key === 'token' || event.key === 'user') {
+        const updatedToken = localStorage.getItem('token');
+        const updatedUser = localStorage.getItem('user');
+        setIsLoggedIn(!!updatedToken && !!updatedUser);
+      }
     };
 
     window.addEventListener('storage', handleStorageChange);
-
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, []);
+}, []);
+
 
   const handleSearch = async (query) => {
     setSearchQuery(query);
@@ -255,8 +264,8 @@ const Header = () => {
                 <div className="user-menu-container">
                   <button
                     className="nav-link user-btn"
-                    title="Usuario"
-                    onClick={toggleUserMenu}
+                    title="Perfil de usuario"
+                    onClick={handleUserClick}
                   >
                     👤
                   </button>

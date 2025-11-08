@@ -1,14 +1,11 @@
 const express = require('express');
-const router = express.Router({ mergeParams: true });
-const controller = require('../controllers/equipos_favoritos_usuariosController');
+const router = express.Router();
+const favoriteController = require('../controllers/equipos_favoritos_usuariosController');
+const authenticateToken = require('../middlewares/authMiddlewares');
 
-// Obtener todos los equipos favoritos de un usuario
-router.get('/', controller.getUserFavorites);
-
-// Agregar un equipo favorito
-router.post('/', controller.addFavorite);
-
-// Eliminar un equipo favorito
-router.delete('/:teamId', controller.removeFavorite);
+// Favoritos protegidos
+router.get('/', authenticateToken, favoriteController.getUserFavorites);
+router.post('/', authenticateToken, favoriteController.addFavorite);
+router.delete('/:teamId', authenticateToken, favoriteController.removeFavorite);
 
 module.exports = router;

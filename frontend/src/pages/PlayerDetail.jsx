@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import ApiService from '../services/api';
+import FavoritePlayerButton from './FavoritePlayerButton';
 import './PlayerDetail.css';
 
 const PlayerDetail = () => {
@@ -8,38 +10,41 @@ const PlayerDetail = () => {
   const [playerPhoto, setPlayerPhoto] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/players/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        setPlayer(data);
-        // Intentar buscar foto real del jugador
-        searchPlayerPhoto(data);
-      })
-      .catch(error => console.error('Error al cargar jugador:', error));
+    loadPlayer();
   }, [id]);
 
-  // Función para buscar foto del jugador en APIs externas
+  const loadPlayer = async () => {
+    try {
+      const data = await ApiService.getPlayerById(id);
+      setPlayer(data);
+      searchPlayerPhoto(data);
+    } catch (error) {
+      console.error('Error al cargar jugador:', error);
+    }
+  };
+
   const searchPlayerPhoto = async (playerData) => {
     const fullName = `${playerData.first_name} ${playerData.last_name}`;
     
     try {
-      // Intentar con TheSportsDB API (gratis, tiene muchos jugadores)
       const searchName = encodeURIComponent(fullName);
+      // Usando '3' para la versión pública de la API de TheSportsDB, asumiendo que funciona
       const response = await fetch(`https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${searchName}`);
       const data = await response.json();
       
       if (data.player && data.player.length > 0) {
-        const playerImg = data.player[0].strThumb || data.player[0].strCutout;
+        // Preferir strCutout (silueta) sobre strThumb (cuerpo completo/tarjeta) si están disponibles
+        const playerImg = data.player[0].strCutout || data.player[0].strThumb; 
         if (playerImg) {
           setPlayerPhoto(playerImg);
           return;
         }
       }
     } catch (error) {
-      console.log('No se encontró foto en TheSportsDB');
+      console.log('No se encontró foto en TheSportsDB', error);
     }
 
-    // Si no se encuentra, usar avatar por defecto
+    // Fallback con ui-avatars
     setPlayerPhoto(`https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&size=300&background=667eea&color=fff&bold=true&font-size=0.35&rounded=true`);
   };
 
@@ -52,7 +57,6 @@ const PlayerDetail = () => {
     );
   }
 
-  // 🗓️ Convertir fecha y calcular edad
   const birthday = player.date_of_birth ? new Date(player.date_of_birth) : null;
   const formattedBirthday = birthday
     ? birthday.toLocaleDateString('es-ES', {
@@ -75,7 +79,6 @@ const PlayerDetail = () => {
 
   const age = calculateAge(birthday);
 
-  // 🌍 Traducciones y banderas
   const countries = {
     Argentina: { name: 'Argentina', code: 'ar' },
     Spain: { name: 'España', code: 'es' },
@@ -87,6 +90,7 @@ const PlayerDetail = () => {
     Portugal: { name: 'Portugal', code: 'pt' },
     Uruguay: { name: 'Uruguay', code: 'uy' },
     Chile: { name: 'Chile', code: 'cl' },
+    // Puedes agregar más países aquí
   };
 
   const nationalityData = countries[player.nationality] || {
@@ -94,15 +98,12 @@ const PlayerDetail = () => {
     code: null,
   };
 
-  // Obtener foto del jugador
   const getPlayerPhoto = () => {
-    // Si ya buscamos una foto, usarla
-    if (playerPhoto) return playerPhoto;
-    
-    // Si tiene foto en BD, usarla
+    // Si ya cargó la foto de TheSportsDB o el avatar, usa playerPhoto
+    if (playerPhoto) return playerPhoto; 
+    // Fallback: si el backend tiene una URL directa
     if (player.photo_url) return player.photo_url;
-    
-    // Mientras se busca, mostrar avatar
+    // Fallback final: avatar generado
     const fullName = `${player.first_name} ${player.last_name}`;
     return `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&size=300&background=667eea&color=fff&bold=true&font-size=0.35&rounded=true`;
   };
@@ -110,30 +111,28 @@ const PlayerDetail = () => {
   return (
     <div className="player-detail-container">
       <div className="player-detail-wrapper">
-        
-        {/* Card Principal */}
         <div className="player-card">
-          
-          {/* Banner Superior con Gradiente */}
           <div className="player-banner">
             <div className="banner-overlay"></div>
+            
+            {/* Botón de favorito */}
+            <div className="favorite-btn-container">
+              <FavoritePlayerButton 
+                playerId={id}
+                playerName={`${player.first_name} ${player.last_name}`}
+                size="lg"
+              />
+            </div>
           </div>
           
-          {/* Sección de Foto */}
           <div className="player-photo-section">
             <div className="photo-wrapper">
               <img
                 className="player-photo"
                 src={getPlayerPhoto()}
                 alt={`${player.first_name} ${player.last_name}`}
-                onError={(e) => {
-                  e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                    player.first_name + ' ' + player.last_name
-                  )}&size=300&background=2563eb&color=fff&bold=true`;
-                }}
               />
               
-              {/* Badge del equipo en la foto */}
               {player.Team?.logo_url && (
                 <div className="team-badge">
                   <img
@@ -145,33 +144,27 @@ const PlayerDetail = () => {
               )}
             </div>
             
-            {/* Nombre del jugador */}
             <h1 className="player-name">
               {player.first_name} <span className="last-name">{player.last_name}</span>
             </h1>
             
-            {/* Posición */}
             <div className="position-badge">
               {player.position || 'Posición desconocida'}
             </div>
           </div>
         </div>
 
-        {/* Grid de Información */}
+        {/* Info Grid */}
         <div className="info-grid">
           
-          {/* Tarjeta Equipo */}
+          {/* Equipo */}
           <div className="info-card team-card">
             <div className="card-icon">
               {player.Team?.logo_url ? (
-                <img
-                  src={player.Team.logo_url}
-                  alt={player.Team.name}
-                  className="team-logo-icon"
-                />
+                <img src={player.Team.logo_url} alt={player.Team.name} className="team-logo-icon" />
               ) : (
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               )}
             </div>
@@ -181,18 +174,14 @@ const PlayerDetail = () => {
             </div>
           </div>
 
-          {/* Tarjeta Nacionalidad */}
+          {/* Nacionalidad */}
           <div className="info-card nationality-card">
             <div className="card-icon">
               {nationalityData.code ? (
-                <img
-                  src={`https://flagcdn.com/w40/${nationalityData.code}.png`}
-                  alt={nationalityData.name}
-                  className="flag-icon"
-                />
+                <img src={`https://flagcdn.com/w40/${nationalityData.code}.png`} alt={nationalityData.name} className="flag-icon" />
               ) : (
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+                  <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               )}
             </div>
@@ -202,7 +191,7 @@ const PlayerDetail = () => {
             </div>
           </div>
 
-          {/* Tarjeta Cumpleaños */}
+          {/* Cumpleaños */}
           <div className="info-card birthday-card">
             <div className="card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -214,12 +203,12 @@ const PlayerDetail = () => {
               <p className="card-value">{formattedBirthday}</p>
             </div>
           </div>
-
-          {/* Tarjeta Edad */}
+          
+          {/* Edad */}
           <div className="info-card age-card">
             <div className="card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                <path d="M4 4v5h.582m15.356 2A8.96 8.96 0 0020 12c0-4.97-4.43-9-9.928-9C6.884 3 4 5.257 4 9s2.884 6 6.072 6c1.192 0 2.373-.243 3.49-1m-4.072-5V9H16.5" />
               </svg>
             </div>
             <div className="card-content">
@@ -227,10 +216,9 @@ const PlayerDetail = () => {
               <p className="card-value">{age ? `${age} años` : 'Desconocida'}</p>
             </div>
           </div>
-
-        </div>
-      </div>
-    </div>
+        </div> {/* Cierre de info-grid */}
+      </div> {/* Cierre de player-detail-wrapper */}
+    </div> // Cierre de player-detail-container
   );
 };
 

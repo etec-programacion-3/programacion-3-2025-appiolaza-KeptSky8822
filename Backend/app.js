@@ -8,7 +8,13 @@ const jugadores_Routes = require('./src/routes/jugadores_routes');
 const partido_Routes = require('./src/routes/partido_routes');
 const partidoevent_Routes = require('./src/routes/partidoevent_routes');
 const usuario_Routes = require('./src/routes/usuario_routes');
+const auth_Routes = require('./src/routes/auth.routes');
+const equipofav_Routes = require('./src/routes/equipos_favoritos_usuarios');
+const favoritePlayersRoutes = require('./src/routes/jugadores_favoritos_usuarios');
 const autoUpdateService = require('./src/services/autoUpdateService');
+
+
+
 require('dotenv').config();
 
 
@@ -32,7 +38,11 @@ app.use('/api/matches', partido_Routes);
 // Usas las rutas de partidos de evento
 app.use('/api/match-events',partidoevent_Routes );
 // Usas las rutas de usuarios
+app.use('/api/auth', auth_Routes);
 app.use('/api/users', usuario_Routes);  
+app.use('/api/favorite', equipofav_Routes);
+app.use('/api/favorite-players', favoritePlayersRoutes);
+
 
 
 // Rutas de ejemplo

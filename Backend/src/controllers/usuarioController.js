@@ -1,7 +1,8 @@
-const User = require('../models/usuario');
+const bcrypt = require('bcryptjs');
+const { User } = require('../models');
 
 module.exports = {
-  // Listar todos los usuarios con paginación
+  // Listar usuarios con paginación
   async getAll(req, res) {
     try {
       const page = parseInt(req.query.page) || 1;
@@ -10,44 +11,38 @@ module.exports = {
 
       const { count, rows: users } = await User.findAndCountAll({
         limit,
-        offset
+        offset,
+        attributes: ['id','username','email','createdAt']
       });
-
       const totalPages = Math.ceil(count / limit);
 
-      res.json({
-        data: users,
-        pagination: {
-          total: count,
-          page,
-          limit,
-          totalPages
-        }
-      });
+      res.json({ data: users, pagination: { total: count, page, limit, totalPages } });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ message: error.message });
     }
   },
 
   // Obtener usuario por id
   async getById(req, res) {
     try {
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.params.id, { attributes: ['id','username','email','createdAt'] });
       if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
       res.json(user);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ message: error.message });
     }
   },
 
-  // Crear usuario
+  // Crear usuario (opcional admin)
   async create(req, res) {
     try {
       const { username, email, password } = req.body;
-      const newUser = await User.create({ username, email, password });
-      res.status(201).json(newUser);
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      const newUser = await User.create({ username, email, password: hashedPassword });
+      res.status(201).json({ id: newUser.id, username, email, createdAt: newUser.createdAt });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ message: error.message });
     }
   },
 
@@ -58,10 +53,16 @@ module.exports = {
       if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
 
       const { username, email, password } = req.body;
-      await user.update({ username, email, password });
-      res.json(user);
+      const updateData = { username, email };
+      if (password) {
+        const salt = await bcrypt.genSalt(10);
+        updateData.password = await bcrypt.hash(password, salt);
+      }
+
+      await user.update(updateData);
+      res.json({ id: user.id, username, email, updatedAt: user.updatedAt });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ message: error.message });
     }
   },
 
@@ -74,7 +75,7 @@ module.exports = {
       await user.destroy();
       res.json({ message: 'Usuario eliminado correctamente' });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ message: error.message });
     }
   }
 };

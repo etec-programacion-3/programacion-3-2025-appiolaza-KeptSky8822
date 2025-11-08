@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import FavoriteButton from './FavoriteButton'; // Importar el componente de favoritos
 import './TeamDetail.css';
 
 const TeamDetail = () => {
@@ -120,6 +121,15 @@ const TeamDetail = () => {
     <div className="team-detail-page">
       {/* Header principal del equipo */}
       <div className="team-main-card">
+        {/* ⭐ ESTRELLA DE FAVORITOS - Agregada en la esquina superior derecha */}
+        <div className="team-favorite-btn-wrapper">
+          <FavoriteButton 
+            teamId={team.id} 
+            teamName={team.name} 
+            size="lg" 
+          />
+        </div>
+
         <div className="team-logo-section">
           <img
             src={team.logo_url || team.logo || "https://via.placeholder.com/200?text=Logo"}
