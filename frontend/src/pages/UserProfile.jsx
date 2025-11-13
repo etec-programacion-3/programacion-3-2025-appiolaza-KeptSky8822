@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './UserProfile.css';
-import { Link } from 'react-router-dom'; // Importamos Link para los enlaces
+import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
-  const [favoriteTeams, setFavoriteTeams] = useState([]); // Renombrado para claridad
-  const [favoritePlayers, setFavoritePlayers] = useState([]); // Nuevo estado para jugadores
+  const [favoriteTeams, setFavoriteTeams] = useState([]);
+  const [favoritePlayers, setFavoritePlayers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const handleLogout = () => {
-    // Limpiar localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    
-    // Redirigir al login o recargar la página
-    window.location.href = '/login'; // Cambia '/login' por tu ruta de login
+    window.location.href = '/login';
   };
 
   useEffect(() => {
@@ -30,23 +27,81 @@ const UserProfile = () => {
 
     const fetchFavorites = async () => {
       try {
-        // 1. Obtener Equipos Favoritos (usando /api/favorite)
-        const teamRes = await axios.get('http://localhost:3000/api/favorite', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        console.log('🧩 Equipos Favoritos obtenidos:', teamRes.data);
-        setFavoriteTeams(teamRes.data);
+        // 1. Obtener Equipos Favoritos
+        let teams = [];
+        try {
+          const teamRes = await axios.get('http://localhost:3000/api/favorite', {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          console.log('🧩 Respuesta completa equipos:', teamRes.data);
+          
+          // Normalizar la respuesta de equipos
+          if (Array.isArray(teamRes.data)) {
+            teams = teamRes.data;
+          } else if (teamRes.data && typeof teamRes.data === 'object' && teamRes.data.id) {
+            teams = [teamRes.data];
+          }
+          console.log('✅ Equipos procesados:', teams);
+        } catch (teamErr) {
+          // Si es 404, significa que no hay equipos favoritos
+          if (teamErr.response?.status === 404) {
+            console.log('ℹ️ No hay equipos favoritos (404)');
+            teams = [];
+          } else {
+            console.error('❌ Error al obtener equipos:', teamErr);
+            teams = [];
+          }
+        }
+        setFavoriteTeams(teams);
 
-        // 2. Obtener Jugadores Favoritos (usando /api/favorite-players)
-        const playerRes = await axios.get('http://localhost:3000/api/favorite-players', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        console.log('⚽ Jugadores Favoritos obtenidos:', playerRes.data);
-        setFavoritePlayers(playerRes.data);
+        // 2. Obtener Jugadores Favoritos
+        let players = [];
+        try {
+          const playerRes = await axios.get('http://localhost:3000/api/favorite-players', {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          console.log('⚽ Respuesta completa jugadores:', playerRes.data);
+          
+          // Normalizar la respuesta de jugadores
+          if (Array.isArray(playerRes.data)) {
+            players = playerRes.data;
+          } else if (playerRes.data && typeof playerRes.data === 'object' && playerRes.data.id) {
+            players = [playerRes.data];
+          }
+          
+          // Procesar jugadores para asegurar que tengan la estructura correcta
+          players = players.map(player => {
+            console.log('🔍 Procesando jugador individual:', player);
+            console.log('   - photo_url:', player.photo_url);
+            console.log('   - Todas las propiedades:', Object.keys(player));
+            
+            return {
+              id: player.id,
+              full_name: player.full_name || `${player.first_name || ''} ${player.last_name || ''}`.trim(),
+              position: player.position || 'Jugador',
+              photo_url: player.photo_url || player.photoUrl || player.image_url || player.photo || null,
+              first_name: player.first_name,
+              last_name: player.last_name
+            };
+          });
+          
+          console.log('✅ Jugadores procesados:', players);
+        } catch (playerErr) {
+          // Si es 404, significa que no hay jugadores favoritos
+          if (playerErr.response?.status === 404) {
+            console.log('ℹ️ No hay jugadores favoritos (404)');
+            players = [];
+          } else {
+            console.error('❌ Error al obtener jugadores:', playerErr);
+            players = [];
+          }
+        }
+        setFavoritePlayers(players);
 
       } catch (err) {
-        console.error('❌ Error al obtener favoritos:', err);
-        // Si el error es 401 (no autorizado), forzar logout o manejarlo.
+        console.error('❌ Error general al obtener favoritos:', err);
+        setFavoriteTeams([]);
+        setFavoritePlayers([]);
       } finally {
         setLoading(false);
       }
@@ -122,7 +177,6 @@ const UserProfile = () => {
           {favoriteTeams.length > 0 ? (
             <div className="favorites-grid team-grid">
               {favoriteTeams.map((fav, index) => (
-                // Usar Link para navegar al detalle del equipo
                 <Link to={`/teams/${fav.id}`} key={fav.id || index} className="team-card favorite-item-card">
                   <div className="team-content">
                     {fav.logo_url ? (
@@ -158,7 +212,7 @@ const UserProfile = () => {
           )}
         </div>
         
-        {/* --- NUEVA SECCIÓN: JUGADORES FAVORITOS --- */}
+        {/* Sección de Jugadores Favoritos */}
         <div className="favorites-card players-favorites-card">
           <div className="favorites-header">
             <div className="favorites-icon-wrapper">
@@ -181,26 +235,39 @@ const UserProfile = () => {
 
           {favoritePlayers.length > 0 ? (
             <div className="favorites-grid player-grid">
-              {favoritePlayers.map((player, index) => (
-                // Usar Link para navegar al detalle del jugador. 
-                // Usamos player.id porque este ID es el del jugador, como se vio en la depuración anterior.
-                <Link to={`/players/${player.id}`} key={player.id || index} className="player-card favorite-item-card">
-                  <div className="player-content">
-                    <div className="player-photo-wrapper">
-                       {/* Si player.photo_url existe, usarla. Si no, usar un avatar genérico */}
-                       <img
-                          src={player.photo_url || `https://ui-avatars.com/api/?name=${player.full_name}&size=60&background=064e3b&color=fff&bold=true&font-size=0.35`}
-                          alt={player.full_name}
-                          className="player-photo"
-                        />
+              {favoritePlayers.map((player, index) => {
+                console.log('🔍 Renderizando jugador:', player);
+                return (
+                  <Link to={`/players/${player.id}`} key={player.id || index} className="player-card favorite-item-card">
+                    <div className="player-content">
+                      <div className="player-photo-wrapper">
+                        {player.photo_url ? (
+                          <img
+                            src={player.photo_url}
+                            alt={player.full_name}
+                            className="player-photo"
+                            onError={(e) => {
+                              console.error('❌ Error al cargar imagen:', player.photo_url);
+                              // Si la imagen falla, usar avatar generado
+                              e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(player.full_name)}&size=120&background=064e3b&color=fff&bold=true&font-size=0.35`;
+                            }}
+                          />
+                        ) : (
+                          <img
+                            src={`https://ui-avatars.com/api/?name=${encodeURIComponent(player.full_name)}&size=120&background=064e3b&color=fff&bold=true&font-size=0.35`}
+                            alt={player.full_name}
+                            className="player-photo"
+                          />
+                        )}
+                      </div>
+                      <div className="player-info">
+                        <h3 className="player-name">{player.full_name}</h3>
+                        <span className="player-position">{player.position}</span>
+                      </div>
                     </div>
-                    <div className="player-info">
-                      <h3 className="player-name">{player.full_name}</h3>
-                      <span className="player-position">{player.position || 'Jugador'}</span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
           ) : (
             <div className="empty-state">

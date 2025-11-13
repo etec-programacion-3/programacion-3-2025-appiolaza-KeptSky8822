@@ -11,6 +11,8 @@ const usuario_Routes = require('./src/routes/usuario_routes');
 const auth_Routes = require('./src/routes/auth.routes');
 const equipofav_Routes = require('./src/routes/equipos_favoritos_usuarios');
 const favoritePlayersRoutes = require('./src/routes/jugadores_favoritos_usuarios');
+const ArticleRoutes = require('./src/routes/articulos');
+const MediaGalleryRoutes = require('./src/routes/mediagallery');
 const autoUpdateService = require('./src/services/autoUpdateService');
 
 
@@ -42,6 +44,8 @@ app.use('/api/auth', auth_Routes);
 app.use('/api/users', usuario_Routes);  
 app.use('/api/favorite', equipofav_Routes);
 app.use('/api/favorite-players', favoritePlayersRoutes);
+app.use('/api/articles', ArticleRoutes);
+app.use('/api/media', MediaGalleryRoutes);
 
 
 

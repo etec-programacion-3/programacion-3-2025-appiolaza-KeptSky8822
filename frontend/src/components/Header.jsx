@@ -260,6 +260,15 @@ const Header = () => {
         <nav className="nav">
           <ul className="nav-list">
             <li className="nav-item">
+              <Link 
+                to="/noticias" 
+                className="nav-link"
+                title="Noticias"
+              >
+                📰
+              </Link>
+            </li>
+            <li className="nav-item">
               {isLoggedIn ? (
                 <div className="user-menu-container">
                   <button

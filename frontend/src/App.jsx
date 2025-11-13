@@ -18,6 +18,8 @@ import Register from './pages/Register';
 import PlayerDetail from './pages/PlayerDetail';
 import TeamDetail from './pages/TeamDetail';
 import UserProfile from './pages/UserProfile'; 
+import  Article from './pages/ArticlesList' ;
+import ArticleDetail from './pages/ArticleDetail';
 import './App.css';
 
 
@@ -45,6 +47,8 @@ function App() {
             <Route path="/players/:id" element={<PlayerDetail />} />
             <Route path="/teams/:id" element={<TeamDetail />} />
             <Route path="/usuario" element={<UserProfile />} />
+            <Route path="/noticias" element={<Article />} />
+            <Route path="/noticias/:id" element={<ArticleDetail />} /> 
           </Routes>
         </main>
         <Footer />
