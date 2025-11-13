@@ -16,6 +16,8 @@ const MatchEvent = require('./partidoevent');
 const User = require('./usuario');
 const FavoriteTeam = require('./equipos_favoritos_usuarios');
 const FavoritePlayer = require('./jugadores_favoritos_usuarios');
+const Article = require('./Articulo');
+const MediaGallery = require('./MediaGallery');
 
 // =============================
 // Definición de Relaciones
@@ -72,7 +74,9 @@ Team.belongsToMany(User, { through: FavoriteTeam, foreignKey: 'team_id' ,as: 'te
 User.belongsToMany(Player, { through: FavoritePlayer, foreignKey: 'userId', as: 'favoritePlayers' });
 Player.belongsToMany(User, { through: FavoritePlayer, foreignKey: 'playerId', as: 'playerfans' });
 
-
+// Article -> MediaGallery
+Article.hasMany(MediaGallery, { as: 'mediaItems', foreignKey: 'articleId', onDelete: 'CASCADE' });
+MediaGallery.belongsTo(Article, { foreignKey: 'articleId', as: 'parentArticle' });
 
 // Exportar
 module.exports = {
@@ -88,4 +92,6 @@ module.exports = {
   User,
   FavoriteTeam,
   FavoritePlayer,
+  Article,
+  MediaGallery,
 };

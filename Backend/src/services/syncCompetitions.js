@@ -1,4 +1,5 @@
-require('dotenv').config(); // Cargar variables de entorno
+require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
+
 const { sequelize } = require('../models');
 const { fetchCompetitions } = require('./fetchCompetitions');
 

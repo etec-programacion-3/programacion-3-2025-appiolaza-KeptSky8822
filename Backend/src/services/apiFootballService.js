@@ -1,6 +1,7 @@
 // backend/src/services/apiFootballService.js
 const axios = require('axios');
-require('dotenv').config(); // Asegurar que dotenv se cargue
+require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
+
 
 console.log('API URL:', process.env.FOOTBALL_API_URL); // Debug
 console.log('API Key exists:', !!process.env.FOOTBALL_API_KEY); // Debug

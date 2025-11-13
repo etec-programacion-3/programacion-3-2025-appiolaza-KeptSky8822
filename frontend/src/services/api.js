@@ -201,6 +201,38 @@ async removeFavoritePlayer(favoriteId, token) {
   async getMatchEventById(id) {
     return this.request(`/match-events/${id}`);
   }
+
+  // Articles endpoints
+  async getArticles() {
+    return this.request('/articles');
+  }
+
+  async getArticleById(id) {
+    return this.request(`/articles/${id}`);
+  }
+
+  async createArticle(articleData) {
+    return this.request('/articles', {
+      method: 'POST',
+      body: JSON.stringify(articleData),
+    });
+  }
+
+  async updateArticle(id, articleData) {
+    return this.request(`/articles/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(articleData),
+    });
+  }
+
+  async deleteArticle(id) {
+    return this.request(`/articles/${id}`, {
+      method: 'DELETE',
+    });
+  }
+
+
+
 }
   
 
