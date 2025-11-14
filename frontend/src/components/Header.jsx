@@ -13,11 +13,9 @@ const Header = () => {
     navigate('/usuario'); // 👈 redirige al perfil
   };
 
-
-
   // Verificar si hay un usuario logueado al cargar el componente
   useEffect(() => {
-  // Al cargar, leer datos del localStorage
+    // Al cargar, leer datos del localStorage
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
 
@@ -36,8 +34,7 @@ const Header = () => {
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-}, []);
-
+  }, []);
 
   const handleSearch = async (query) => {
     setSearchQuery(query);
@@ -169,7 +166,11 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <Link to="/" className="header-logo">
-          ⚽ Football Vision
+          <img 
+            src="/assets/football-vision-logo.png" 
+            alt="Football Vision" 
+            className="header-logo-img"
+          />
         </Link>
         
         <div className="search-container">

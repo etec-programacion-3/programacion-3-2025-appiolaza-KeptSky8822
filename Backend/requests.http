@@ -1,0 +1,68 @@
+### 🔐 TOKEN (solo modificar esta línea)
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiYXBwaW9sYXphX19fX0BnbWFpbC5jb20iLCJ1c2VybmFtZSI6Ikp1bGlhbjkwIiwiaWF0IjoxNzYzMDg5NTUwLCJleHAiOjE3NjM2OTQzNTB9.QBQJoOPGVNjJ-iHDc91m21gjAvdJML42ebWHUgmE4U8
+
+
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "appiolaza____@gmail.com",
+  "password": "julian10"
+}
+
+### ===========================================================
+### 👤 CRUD USUARIOS
+### ===========================================================
+
+### Obtener todos los usuarios
+GET http://localhost:3000/api/users
+Authorization: Bearer {{token}}
+
+### Obtener un usuario por ID
+GET http://localhost:3000/api/users/11
+Authorization: Bearer {{token}}
+
+### Crear un usuario
+POST http://localhost:3000/api/users
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "username": "Nuevo Usuario",
+  "email": "nuevo@ejemplo.com",
+  "password": "123456"
+}
+
+### Actualizar un usuario
+PUT http://localhost:3000/api/users/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "username": "Usuario Actualizado",
+  "email": "actualizado@ejemplo.com"
+}
+
+### Eliminar un usuario
+DELETE http://localhost:3000/api/users/1
+Authorization: Bearer {{token}}
+
+
+### ===========================================================
+### 📌 ACLARACIÓN DE ID DE COMPETENCIAS (según tu base de datos)
+### ===========================================================
+# 2001 → UEFA Champions League (CL)
+# 2002 → Bundesliga (BL1)
+# 2014 → Primera División (PD)
+# 2015 → Ligue 1 (FL1)
+# 2019 → Serie A (SA)
+# 2021 → Premier League (PL)
+
+
+### ===========================================================
+### 📊 ENDPOINTS DE COMPETENCIAS
+### ===========================================================
+
+### Obtener tabla de posiciones de una competencia
+GET http://localhost:3000/api/competitions/2001/standings
+Authorization: Bearer {{token}}

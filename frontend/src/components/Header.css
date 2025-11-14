@@ -15,7 +15,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 2rem 2rem;
 }
 
 .header-logo {
@@ -24,6 +24,20 @@
   color: white;
   text-decoration: none;
   transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-logo-img {
+  height: 120px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.header-logo:hover .header-logo-img {
+  transform: scale(1.05);
 }
 
 .header-logo:hover {
@@ -320,6 +334,11 @@
     order: 1;
     width: 100%;
     text-align: center;
+    justify-content: center;
+  }
+
+  .header-logo-img {
+    height: 80px;
   }
 
   .search-container {

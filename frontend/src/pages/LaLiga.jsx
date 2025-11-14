@@ -446,6 +446,56 @@ const LaLiga = () => {
             )}
           </div>
         )}
+                {activeTab === 'scorers' && (
+          <div className="top-scorers-section">
+            <h2>Máximos Goleadores</h2>
+
+            {loadingScorers ? (
+              <div className="loading">
+                <p>Cargando máximos goleadores...</p>
+              </div>
+            ) : scorersError ? (
+              <div className="error">
+                <p>{scorersError}</p>
+              </div>
+            ) : (
+              <div className="scorers-table-container">
+                <table className="scorers-table">
+                  <thead>
+                    <tr>
+                      <th>Pos</th>
+                      <th>Jugador</th>
+                      <th>Equipo</th>
+                      <th>Goles</th>
+                      <th>Asistencias</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {topScorers.map((scorer, index) => (
+                      <tr key={index}>
+                        <td className="position">{index + 1}</td>
+                        <td className="player-name">
+                          <div className="player-info">
+                            {scorer.photo_url && <img src={scorer.photo_url} alt={scorer.display_name} className="player-photo-small" />}
+                            <span>{scorer.display_name || `${scorer.first_name} ${scorer.last_name}`}</span>
+                          </div>
+                        </td>
+                        <td className="team-name">
+                          <div className="team-info">
+                            {scorer.team_logo && <img src={scorer.team_logo} alt={scorer.team_name} className="team-logo-small" />}
+                            <span>{scorer.team_name}</span>
+                          </div>
+                        </td>
+                        <td className="goals">{scorer.goals}</td>
+                        <td className="assists">{scorer.assists}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="laliga-info">
           <h2>Sobre La Liga</h2>

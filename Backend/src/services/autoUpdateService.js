@@ -122,26 +122,27 @@ class AutoUpdateService {
 
   // Iniciar programador automático
   startScheduler() {
-    console.log('⏰ Iniciando programador automático de actualizaciones...');
+  console.log('⏰ Iniciando programador automático de actualizaciones...');
 
-    // Sincronización completa cada 6 horas
-    const fullSyncJob = cron.schedule('0 2,8,14,20 * * *', () => {
-      console.log('🕐 Ejecutando sincronización completa programada...');
-      this.syncAllCompetitions();
-    });
+  // 🔁 Sincronización completa una vez por día (00:00)
+  const fullSyncJob = cron.schedule('0 0 * * *', () => {
+    console.log('🕐 Ejecutando sincronización completa diaria...');
+    this.syncAllCompetitions();
+  });
 
-    // Sincronización rápida cada 30 minutos
-    const quickSyncJob = cron.schedule('*/30 * * * *', () => {
-      console.log('🕐 Ejecutando sincronización rápida programada...');
-      this.quickSync();
-    });
+  // ⚡ Sincronización rápida una vez por día (06:00)
+  const quickSyncJob = cron.schedule('0 6 * * *', () => {
+    console.log('⚡ Ejecutando sincronización rápida diaria...');
+    this.quickSync();
+  });
 
-    this.jobs = [fullSyncJob, quickSyncJob];
+  this.jobs = [fullSyncJob, quickSyncJob];
 
-    console.log('✅ Programador automático iniciado!');
-    console.log('📅 Sincronización completa: cada 6 horas');
-    console.log('⚡ Sincronización rápida: cada 30 minutos');
-  }
+  console.log('✅ Programador automático iniciado!');
+  console.log('📅 Sincronización completa: 1 vez por día (00:00)');
+  console.log('⚡ Sincronización rápida: 1 vez por día (06:00)');
+}
+
 
   // Detener programador
   stopScheduler() {

@@ -1,4 +1,4 @@
-/* Bundesliga Page Styles */
+/* Bundesliga Page Styles - COMPLETAMENTE AISLADO */
 .bundesliga-page {
   min-height: calc(100vh - 200px);
 }
@@ -44,7 +44,7 @@
   margin-bottom: 3rem;
 }
 
-.stat-card {
+.bundesliga-stat-card {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 2rem;
@@ -53,14 +53,14 @@
   border: 1px solid var(--border-color);
 }
 
-.stat-card h3 {
+.bundesliga-stat-card h3 {
   color: #d20515;
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
-.stat-card p {
+.bundesliga-stat-card p {
   color: var(--text-secondary);
   font-size: 1rem;
   font-weight: 500;
@@ -87,19 +87,19 @@
   font-size: 1.1rem;
 }
 
-/* Standings Table Styles */
-.standings-section {
+/* Standings Section */
+.bundesliga-standings-section {
   margin-bottom: 3rem;
 }
 
-.standings-section h2 {
+.bundesliga-standings-section h2 {
   color: var(--text-primary);
   font-size: 2rem;
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.standings-table-container {
+.bundesliga-standings-table-container {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 2rem;
@@ -108,20 +108,20 @@
   overflow-x: auto;
 }
 
-.standings-table {
+.bundesliga-standings-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
 
-.standings-table th,
-.standings-table td {
+.bundesliga-standings-table th,
+.bundesliga-standings-table td {
   padding: 0.75rem 0.5rem;
   text-align: center;
   border-bottom: 1px solid var(--border-color);
 }
 
-.standings-table th {
+.bundesliga-standings-table th {
   background-color: #d20515;
   color: white;
   font-weight: 600;
@@ -130,38 +130,38 @@
   letter-spacing: 0.5px;
 }
 
-.standings-table tbody tr:hover {
+.bundesliga-standings-table tbody tr:hover {
   background-color: var(--light-bg);
 }
 
-.standings-table .position {
+.bundesliga-standings-table .bundesliga-position {
   font-weight: bold;
   font-size: 1.1rem;
 }
 
-.standings-table .team-name {
+.bundesliga-standings-table .bundesliga-team-name {
   text-align: left;
   font-weight: 500;
   max-width: 200px;
 }
 
-.team-info {
+.bundesliga-team-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.team-logo-small {
+.bundesliga-team-logo-small {
   width: 24px;
   height: 24px;
   object-fit: contain;
 }
 
-.status-cell {
+.bundesliga-status-cell {
   text-align: center;
 }
 
-.status-badge {
+.bundesliga-status-badge {
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
   font-size: 0.7rem;
@@ -170,75 +170,75 @@
   letter-spacing: 0.5px;
 }
 
-.status-badge.champions {
+.bundesliga-status-badge.bundesliga-champions {
   background-color: #024281;
   color: white;
 }
 
-.status-badge.europa {
+.bundesliga-status-badge.bundesliga-europa {
   background-color: #fd7e14;
   color: white;
 }
 
-.status-badge.conference {
+.bundesliga-status-badge.bundesliga-conference {
   background-color: #00cc66;
   color: #212529;
 }
 
-.status-badge.playoff {
+.bundesliga-status-badge.bundesliga-playoff {
   background-color: #ffc107;
   color: #212529;
 }
 
-.status-badge.relegation {
+.bundesliga-status-badge.bundesliga-relegation {
   background-color: var(--error-color);
   color: white;
 }
 
-.standings-table .points {
+.bundesliga-standings-table .bundesliga-points {
   font-weight: bold;
   font-size: 1.1rem;
   color: #d20515;
 }
 
-.standings-table .positive {
+.bundesliga-standings-table .bundesliga-positive {
   color: var(--success-color);
   font-weight: 500;
 }
 
-.standings-table .negative {
+.bundesliga-standings-table .bundesliga-negative {
   color: var(--error-color);
   font-weight: 500;
 }
 
 /* Position-based styling */
-.position-champions {
+.bundesliga-position-champions {
   background-color: rgba(25, 135, 84, 0.1);
   border-left: 4px solid #024281;
 }
 
-.position-europa {
+.bundesliga-position-europa {
   background-color: rgba(253, 126, 20, 0.1);
   border-left: 4px solid #fd7e14;
 }
 
-.position-conference {
+.bundesliga-position-conference {
   background-color: rgba(13, 202, 240, 0.1);
   border-left: 4px solid #00cc66;
 }
 
-.position-playoff {
+.bundesliga-position-playoff {
   background-color: rgba(255, 193, 7, 0.1);
   border-left: 4px solid #ffc107;
 }
 
-.position-relegation {
+.bundesliga-position-relegation {
   background-color: rgba(220, 53, 69, 0.1);
   border-left: 4px solid var(--error-color);
 }
 
 /* Competition Tabs */
-.competition-tabs {
+.bundesliga-competition-tabs {
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
@@ -246,7 +246,7 @@
   flex-wrap: wrap;
 }
 
-.tab-button {
+.bundesliga-tab-button {
   padding: 0.75rem 1.5rem;
   border: 2px solid #d20515;
   background: transparent;
@@ -261,13 +261,13 @@
   min-width: 120px;
 }
 
-.tab-button:hover {
+.bundesliga-tab-button:hover {
   background: #d20515;
   color: white;
   transform: translateY(-1px);
 }
 
-.tab-button.active {
+.bundesliga-tab-button.bundesliga-active {
   background: #d20515;
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -275,18 +275,18 @@
 }
 
 /* Matches Section */
-.matches-section {
+.bundesliga-matches-section {
   margin-bottom: 3rem;
 }
 
-.matches-section h2 {
+.bundesliga-matches-section h2 {
   color: var(--text-primary);
   font-size: 2rem;
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.matches-filter {
+.bundesliga-matches-filter {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -299,7 +299,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.nav-button {
+.bundesliga-nav-button {
   background: #d20515;
   color: white;
   border: none;
@@ -315,18 +315,18 @@
   justify-content: center;
 }
 
-.nav-button:hover:not(:disabled) {
+.bundesliga-nav-button:hover:not(:disabled) {
   background: #8b0000;
   transform: scale(1.1);
 }
 
-.nav-button:disabled {
+.bundesliga-nav-button:disabled {
   background: var(--text-secondary);
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.current-jornada {
+.bundesliga-current-jornada {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-primary);
@@ -338,13 +338,13 @@
   border: 1px solid var(--border-color);
 }
 
-.matches-list {
+.bundesliga-matches-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.match-card {
+.bundesliga-match-card {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 1.5rem;
@@ -353,12 +353,12 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.match-card:hover {
+.bundesliga-match-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.match-header {
+.bundesliga-match-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -367,11 +367,11 @@
   color: var(--text-secondary);
 }
 
-.match-date {
+.bundesliga-match-date {
   font-weight: 500;
 }
 
-.match-jornada {
+.bundesliga-match-jornada {
   background: #d20515;
   color: white;
   padding: 0.25rem 0.5rem;
@@ -380,49 +380,42 @@
   font-weight: 600;
 }
 
-.match-teams {
+.bundesliga-match-teams {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
-.team {
+.bundesliga-team {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   flex: 1;
 }
 
-.home-team {
+.bundesliga-home-team {
   justify-content: flex-start;
 }
 
-.away-team {
+.bundesliga-away-team {
   justify-content: flex-end;
   flex-direction: row-reverse;
 }
 
-.team-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  max-width: 200px;
-}
-
-.team-logo-match {
+.bundesliga-team-logo-match {
   width: 32px;
   height: 32px;
   object-fit: contain;
 }
 
-.team-name {
+.bundesliga-team-name {
   font-weight: 600;
   color: var(--text-primary);
   text-align: center;
 }
 
-.team-score {
+.bundesliga-team-score {
   font-size: 1.5rem;
   font-weight: bold;
   color: #d20515;
@@ -430,48 +423,48 @@
   text-align: center;
 }
 
-.vs-separator {
+.bundesliga-vs-separator {
   font-weight: 600;
   color: var(--text-secondary);
   margin: 0 1rem;
 }
 
-.match-status {
+.bundesliga-match-status {
   text-align: center;
 }
 
-.status-badge.finished {
+.bundesliga-status-badge.bundesliga-finished {
   background-color: var(--success-color);
 }
 
-.status-badge.live {
+.bundesliga-status-badge.bundesliga-live {
   background-color: var(--error-color);
-  animation: pulse 2s infinite;
+  animation: bundesliga-pulse 2s infinite;
 }
 
-.status-badge.scheduled {
+.bundesliga-status-badge.bundesliga-scheduled {
   background-color: var(--text-secondary);
 }
 
-@keyframes pulse {
+@keyframes bundesliga-pulse {
   0% { opacity: 1; }
   50% { opacity: 0.5; }
   100% { opacity: 1; }
 }
 
 /* Top Scorers Section */
-.top-scorers-section {
+.bundesliga-top-scorers-section {
   margin-bottom: 3rem;
 }
 
-.top-scorers-section h2 {
+.bundesliga-top-scorers-section h2 {
   color: var(--text-primary);
   font-size: 2rem;
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.scorers-table-container {
+.bundesliga-scorers-table-container {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 2rem;
@@ -480,20 +473,20 @@
   overflow-x: auto;
 }
 
-.scorers-table {
+.bundesliga-scorers-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
 
-.scorers-table th,
-.scorers-table td {
+.bundesliga-scorers-table th,
+.bundesliga-scorers-table td {
   padding: 0.75rem 0.5rem;
   text-align: center;
   border-bottom: 1px solid var(--border-color);
 }
 
-.scorers-table th {
+.bundesliga-scorers-table th {
   background-color: #d20515;
   color: white;
   font-weight: 600;
@@ -502,51 +495,51 @@
   letter-spacing: 0.5px;
 }
 
-.scorers-table tbody tr:hover {
+.bundesliga-scorers-table tbody tr:hover {
   background-color: var(--light-bg);
 }
 
-.scorers-table .position {
+.bundesliga-scorers-table .bundesliga-position {
   font-weight: bold;
   font-size: 1.1rem;
 }
 
-.scorers-table .player-name {
+.bundesliga-scorers-table .bundesliga-player-name {
   text-align: left;
   font-weight: 500;
   max-width: 200px;
 }
 
-.player-info {
+.bundesliga-player-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.player-photo-small {
+.bundesliga-player-photo-small {
   width: 32px;
   height: 32px;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.scorers-table .team-name {
+.bundesliga-scorers-table .bundesliga-team-name {
   text-align: left;
   max-width: 200px;
 }
 
-.scorers-table .goals {
+.bundesliga-scorers-table .bundesliga-goals {
   font-weight: bold;
   font-size: 1.1rem;
   color: #d20515;
 }
 
-.scorers-table .assists {
+.bundesliga-scorers-table .bundesliga-assists {
   color: var(--text-secondary);
 }
 
 /* Standings Legend */
-.standings-legend {
+.bundesliga-standings-legend {
   display: flex;
   justify-content: center;
   gap: 2rem;
@@ -554,7 +547,7 @@
   flex-wrap: wrap;
 }
 
-.legend-item {
+.bundesliga-legend-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -562,34 +555,34 @@
   color: var(--text-secondary);
 }
 
-.legend-color {
+.bundesliga-legend-color {
   width: 16px;
   height: 16px;
   border-radius: 2px;
 }
 
-.legend-color.champions {
+.bundesliga-legend-color.bundesliga-champions {
   background-color: #024281;
 }
 
-.legend-color.europa {
+.bundesliga-legend-color.bundesliga-europa {
   background-color: #fd7e14;
 }
 
-.legend-color.conference {
+.bundesliga-legend-color.bundesliga-conference {
   background-color: #00cc66;
 }
 
-.legend-color.playoff {
+.bundesliga-legend-color.bundesliga-playoff {
   background-color: #ffc107;
 }
 
-.legend-color.relegation {
+.bundesliga-legend-color.bundesliga-relegation {
   background-color: var(--error-color);
 }
 
 /* Loading and Error States */
-.loading, .error {
+.bundesliga-loading, .bundesliga-error {
   text-align: center;
   padding: 2rem;
   background: var(--card-bg);
@@ -598,12 +591,12 @@
   margin: 1rem 0;
 }
 
-.loading p {
+.bundesliga-loading p {
   color: var(--text-secondary);
   font-size: 1.1rem;
 }
 
-.error p {
+.bundesliga-error p {
   color: var(--error-color);
   font-size: 1.1rem;
 }
@@ -635,11 +628,11 @@
     gap: 1rem;
   }
 
-  .stat-card {
+  .bundesliga-stat-card {
     padding: 1.5rem;
   }
 
-  .stat-card h3 {
+  .bundesliga-stat-card h3 {
     font-size: 2rem;
   }
 
@@ -651,70 +644,65 @@
     font-size: 1.5rem;
   }
 
-  .competition-tabs {
+  .bundesliga-competition-tabs {
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .tab-button {
+  .bundesliga-tab-button {
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
     min-width: 100px;
   }
 
-  .matches-filter {
+  .bundesliga-matches-filter {
     gap: 0.5rem;
   }
 
-  .nav-button {
+  .bundesliga-nav-button {
     width: 35px;
     height: 35px;
     font-size: 1rem;
   }
 
-  .current-jornada {
+  .bundesliga-current-jornada {
     min-width: 150px;
     font-size: 1rem;
   }
 
-  .matches-filter {
+  .bundesliga-matches-filter {
     flex-direction: column;
     gap: 0.5rem;
     padding: 1rem;
   }
 
-  .matches-filter select {
-    width: 100%;
-    max-width: 200px;
-  }
-
-  .match-teams {
+  .bundesliga-match-teams {
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .home-team, .away-team {
+  .bundesliga-home-team, .bundesliga-away-team {
     justify-content: center !important;
     flex-direction: row !important;
   }
 
-  .vs-separator {
+  .bundesliga-vs-separator {
     margin: 0.5rem 0;
   }
 
-  .top-scorers-section h2 {
+  .bundesliga-top-scorers-section h2 {
     font-size: 1.5rem;
   }
 
-  .scorers-table-container {
+  .bundesliga-scorers-table-container {
     padding: 1rem;
   }
 
-  .scorers-table {
+  .bundesliga-scorers-table {
     font-size: 0.8rem;
   }
 
-  .player-photo-small {
+  .bundesliga-player-photo-small {
     width: 24px;
     height: 24px;
   }

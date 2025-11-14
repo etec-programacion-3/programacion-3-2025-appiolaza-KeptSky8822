@@ -75,7 +75,7 @@ async function fetchCompetitionStandings(competitionCode) {
  * Ejecuta la sincronización para múltiples competiciones
  */
 async function fetchAllStandings() {
-  const competitions = ['PL', 'PD', 'SA', 'BL1', 'FL1']; // Premier, La Liga, Serie A, Bundesliga, Ligue 1
+  const competitions = ['PL', 'PD', 'SA', 'BL1', 'FL1', 'CL']; // Premier, La Liga, Serie A, Bundesliga, Ligue 1
   for (const code of competitions) {
     await fetchCompetitionStandings(code);
   }
