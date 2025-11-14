@@ -200,7 +200,7 @@ const Ligue1 = () => {
     <div className="ligue1-page">
       <div className="ligue1-hero">
         <div className="ligue1-logo-large">
-          ⚽
+          <img src=".../public/assets/ligue-1-logo.jpg" alt="Ligue 1" className="ligue1-logo-image" />
         </div>
         <h1>Ligue 1</h1>
         <p>El campeonato de fútbol más prestigioso de Francia</p>

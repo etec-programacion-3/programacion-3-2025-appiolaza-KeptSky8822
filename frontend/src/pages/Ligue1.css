@@ -1,38 +1,117 @@
-/* Ligue 1 Page Styles */
+/* Ligue 1 Page Styles - COMPLETAMENTE AISLADO */
+
+/* Variables específicas para Ligue 1 */
+:root {
+  --ligue1-primary: #0055a4;
+  --ligue1-primary-dark: #003d7a;
+  --ligue1-gradient-start: #0055a4;
+  --ligue1-gradient-end: #003d7a;
+  
+  /* Estado de posiciones */
+  --ligue1-champions: #0066cc;
+  --ligue1-champions-playoff: #20c997;
+  --ligue1-europa: #fd7e14;
+  --ligue1-conference: #0dcaf0;
+  --ligue1-playoff: #ffc107;
+  --ligue1-relegation: #dc3545;
+  
+  /* Tamaños de logo */
+  --ligue1-logo-height: 120px;
+  --ligue1-logo-max-width: 300px;
+  --ligue1-logo-height-mobile: 80px;
+  --ligue1-logo-max-width-mobile: 200px;
+  
+  /* Tamaños de iconos */
+  --ligue1-team-logo-small: 24px;
+  --ligue1-team-logo-match: 32px;
+  --ligue1-player-photo-small: 32px;
+  --ligue1-player-photo-mobile: 24px;
+  
+  /* Espaciado */
+  --ligue1-hero-padding: 4rem 2rem;
+  --ligue1-hero-padding-mobile: 3rem 1rem;
+  --ligue1-content-max-width: 1200px;
+  --ligue1-card-padding: 2rem;
+  --ligue1-card-padding-mobile: 1.5rem;
+  
+  /* Tamaños de fuente */
+  --ligue1-hero-title: 3rem;
+  --ligue1-hero-title-mobile: 2rem;
+  --ligue1-hero-subtitle: 1.2rem;
+  --ligue1-hero-subtitle-mobile: 1rem;
+  --ligue1-section-title: 2rem;
+  --ligue1-section-title-mobile: 1.5rem;
+  --ligue1-stat-number: 2.5rem;
+  --ligue1-stat-number-mobile: 2rem;
+  
+  /* Bordes y sombras */
+  --ligue1-border-radius: 12px;
+  --ligue1-border-radius-small: 6px;
+  --ligue1-badge-radius: 12px;
+  --ligue1-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --ligue1-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15);
+  --ligue1-shadow-large: 0 4px 8px rgba(0, 0, 0, 0.2);
+  
+  /* Transiciones */
+  --ligue1-transition: all 0.3s ease;
+  --ligue1-transition-fast: all 0.2s ease;
+  
+  /* Botones */
+  --ligue1-button-width: 40px;
+  --ligue1-button-width-mobile: 35px;
+  --ligue1-tab-min-width: 120px;
+  --ligue1-tab-min-width-mobile: 100px;
+  
+  /* Opacidades */
+  --ligue1-hero-text-opacity: 0.9;
+  --ligue1-disabled-opacity: 0.5;
+}
+
 .ligue1-page {
   min-height: calc(100vh - 200px);
 }
 
 .ligue1-hero {
   text-align: center;
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, #0055a4 0%, #003d7a 100%);
+  padding: var(--ligue1-hero-padding);
+  background: linear-gradient(135deg, var(--ligue1-gradient-start) 0%, var(--ligue1-gradient-end) 100%);
   color: white;
   margin-bottom: 3rem;
 }
 
 .ligue1-logo-large {
-  font-size: 6rem;
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 6rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.ligue1-logo-image {
+  height: var(--ligue1-logo-height);
+  width: auto;
+  max-width: var(--ligue1-logo-max-width);
+  object-fit: contain;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .ligue1-hero h1 {
-  font-size: 3rem;
+  font-size: var(--ligue1-hero-title);
   margin-bottom: 1rem;
   font-weight: bold;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .ligue1-hero p {
-  font-size: 1.2rem;
-  opacity: 0.9;
+  font-size: var(--ligue1-hero-subtitle);
+  opacity: var(--ligue1-hero-text-opacity);
   max-width: 600px;
   margin: 0 auto;
 }
 
 .ligue1-content {
-  max-width: 1200px;
+  max-width: var(--ligue1-content-max-width);
   margin: 0 auto;
   padding: 0 2rem;
 }
@@ -44,23 +123,23 @@
   margin-bottom: 3rem;
 }
 
-.stat-card {
+.ligue1-stat-card {
   background: var(--card-bg);
-  border-radius: 12px;
-  padding: 2rem;
+  border-radius: var(--ligue1-border-radius);
+  padding: var(--ligue1-card-padding);
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--ligue1-shadow);
   border: 1px solid var(--border-color);
 }
 
-.stat-card h3 {
-  color: #0055a4;
-  font-size: 2.5rem;
+.ligue1-stat-card h3 {
+  color: var(--ligue1-primary);
+  font-size: var(--ligue1-stat-number);
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
-.stat-card p {
+.ligue1-stat-card p {
   color: var(--text-secondary);
   font-size: 1rem;
   font-weight: 500;
@@ -68,15 +147,15 @@
 
 .ligue1-info {
   background: var(--card-bg);
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: var(--ligue1-border-radius);
+  padding: var(--ligue1-card-padding);
+  box-shadow: var(--ligue1-shadow);
   border: 1px solid var(--border-color);
 }
 
 .ligue1-info h2 {
   color: var(--text-primary);
-  font-size: 2rem;
+  font-size: var(--ligue1-section-title);
   margin-bottom: 1.5rem;
 }
 
@@ -87,42 +166,42 @@
   font-size: 1.1rem;
 }
 
-/* Standings Table Styles */
-.standings-section {
+/* Standings Section */
+.ligue1-standings-section {
   margin-bottom: 3rem;
 }
 
-.standings-section h2 {
+.ligue1-standings-section h2 {
   color: var(--text-primary);
-  font-size: 2rem;
+  font-size: var(--ligue1-section-title);
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.standings-table-container {
+.ligue1-standings-table-container {
   background: var(--card-bg);
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: var(--ligue1-border-radius);
+  padding: var(--ligue1-card-padding);
+  box-shadow: var(--ligue1-shadow);
   border: 1px solid var(--border-color);
   overflow-x: auto;
 }
 
-.standings-table {
+.ligue1-standings-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
 
-.standings-table th,
-.standings-table td {
+.ligue1-standings-table th,
+.ligue1-standings-table td {
   padding: 0.75rem 0.5rem;
   text-align: center;
   border-bottom: 1px solid var(--border-color);
 }
 
-.standings-table th {
-  background-color: #0055a4;
+.ligue1-standings-table th {
+  background-color: var(--ligue1-primary);
   color: white;
   font-weight: 600;
   font-size: 0.8rem;
@@ -130,125 +209,125 @@
   letter-spacing: 0.5px;
 }
 
-.standings-table tbody tr:hover {
+.ligue1-standings-table tbody tr:hover {
   background-color: var(--light-bg);
 }
 
-.standings-table .position {
+.ligue1-standings-table .ligue1-position {
   font-weight: bold;
   font-size: 1.1rem;
 }
 
-.standings-table .team-name {
+.ligue1-standings-table .ligue1-team-name {
   text-align: left;
   font-weight: 500;
   max-width: 200px;
 }
 
-.team-info {
+.ligue1-team-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.team-logo-small {
-  width: 24px;
-  height: 24px;
+.ligue1-team-logo-small {
+  width: var(--ligue1-team-logo-small);
+  height: var(--ligue1-team-logo-small);
   object-fit: contain;
 }
 
-.status-cell {
+.ligue1-status-cell {
   text-align: center;
 }
 
-.status-badge {
+.ligue1-status-badge {
   padding: 0.25rem 0.5rem;
-  border-radius: 12px;
+  border-radius: var(--ligue1-badge-radius);
   font-size: 0.7rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.status-badge.champions {
-  background-color: #0066cc;
+.ligue1-status-badge.ligue1-champions {
+  background-color: var(--ligue1-champions);
   color: white;
 }
 
-.status-badge.championsplayoff {
-  background-color: #20c997;
+.ligue1-status-badge.ligue1-championsplayoff {
+  background-color: var(--ligue1-champions-playoff);
   color: white;
 }
 
-.status-badge.europa {
-  background-color: #fd7e14;
+.ligue1-status-badge.ligue1-europa {
+  background-color: var(--ligue1-europa);
   color: white;
 }
 
-.status-badge.conference {
-  background-color: #0dcaf0;
+.ligue1-status-badge.ligue1-conference {
+  background-color: var(--ligue1-conference);
   color: #212529;
 }
 
-.status-badge.playoff {
-  background-color: #ffc107;
+.ligue1-status-badge.ligue1-playoff {
+  background-color: var(--ligue1-playoff);
   color: #212529;
 }
 
-.status-badge.relegation {
-  background-color: var(--error-color);
+.ligue1-status-badge.ligue1-relegation {
+  background-color: var(--ligue1-relegation);
   color: white;
 }
 
-.standings-table .points {
+.ligue1-standings-table .ligue1-points {
   font-weight: bold;
   font-size: 1.1rem;
-  color: #0055a4;
+  color: var(--ligue1-primary);
 }
 
-.standings-table .positive {
+.ligue1-standings-table .ligue1-positive {
   color: var(--success-color);
   font-weight: 500;
 }
 
-.standings-table .negative {
+.ligue1-standings-table .ligue1-negative {
   color: var(--error-color);
   font-weight: 500;
 }
 
 /* Position-based styling */
-.position-champions {
+.ligue1-position-champions {
   background-color: rgba(25, 135, 84, 0.1);
-  border-left: 4px solid #0066cc;
+  border-left: 4px solid var(--ligue1-champions);
 }
 
-.position-championsplayoff {
+.ligue1-position-championsplayoff {
   background-color: rgba(32, 201, 151, 0.1);
-  border-left: 4px solid #20c997;
+  border-left: 4px solid var(--ligue1-champions-playoff);
 }
 
-.position-europa {
+.ligue1-position-europa {
   background-color: rgba(253, 126, 20, 0.1);
-  border-left: 4px solid #fd7e14;
+  border-left: 4px solid var(--ligue1-europa);
 }
 
-.position-conference {
+.ligue1-position-conference {
   background-color: rgba(13, 202, 240, 0.1);
-  border-left: 4px solid #0dcaf0;
+  border-left: 4px solid var(--ligue1-conference);
 }
 
-.position-playoff {
+.ligue1-position-playoff {
   background-color: rgba(255, 193, 7, 0.1);
-  border-left: 4px solid #ffc107;
+  border-left: 4px solid var(--ligue1-playoff);
 }
 
-.position-relegation {
+.ligue1-position-relegation {
   background-color: rgba(220, 53, 69, 0.1);
-  border-left: 4px solid var(--error-color);
+  border-left: 4px solid var(--ligue1-relegation);
 }
 
 /* Competition Tabs */
-.competition-tabs {
+.ligue1-competition-tabs {
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
@@ -256,47 +335,47 @@
   flex-wrap: wrap;
 }
 
-.tab-button {
+.ligue1-tab-button {
   padding: 0.75rem 1.5rem;
-  border: 2px solid #0055a4;
+  border: 2px solid var(--ligue1-primary);
   background: transparent;
-  color: #0055a4;
+  color: var(--ligue1-primary);
   font-weight: 600;
   font-size: 0.9rem;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--ligue1-transition);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  min-width: 120px;
+  min-width: var(--ligue1-tab-min-width);
 }
 
-.tab-button:hover {
-  background: #0055a4;
+.ligue1-tab-button:hover {
+  background: var(--ligue1-primary);
   color: white;
   transform: translateY(-1px);
 }
 
-.tab-button.active {
-  background: #0055a4;
+.ligue1-tab-button.ligue1-active {
+  background: var(--ligue1-primary);
   color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--ligue1-shadow-large);
   transform: translateY(-1px);
 }
 
 /* Matches Section */
-.matches-section {
+.ligue1-matches-section {
   margin-bottom: 3rem;
 }
 
-.matches-section h2 {
+.ligue1-matches-section h2 {
   color: var(--text-primary);
-  font-size: 2rem;
+  font-size: var(--ligue1-section-title);
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.matches-filter {
+.ligue1-matches-filter {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -304,39 +383,39 @@
   margin-bottom: 2rem;
   padding: 1.5rem;
   background: var(--card-bg);
-  border-radius: 12px;
+  border-radius: var(--ligue1-border-radius);
   border: 1px solid var(--border-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.nav-button {
-  background: #0055a4;
+.ligue1-nav-button {
+  background: var(--ligue1-primary);
   color: white;
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: var(--ligue1-button-width);
+  height: var(--ligue1-button-width);
   font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--ligue1-transition);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.nav-button:hover:not(:disabled) {
-  background: #003d7a;
+.ligue1-nav-button:hover:not(:disabled) {
+  background: var(--ligue1-primary-dark);
   transform: scale(1.1);
 }
 
-.nav-button:disabled {
+.ligue1-nav-button:disabled {
   background: var(--text-secondary);
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: var(--ligue1-disabled-opacity);
 }
 
-.current-jornada {
+.ligue1-current-jornada {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-primary);
@@ -344,31 +423,31 @@
   text-align: center;
   padding: 0.5rem 1rem;
   background: var(--light-bg);
-  border-radius: 6px;
+  border-radius: var(--ligue1-border-radius-small);
   border: 1px solid var(--border-color);
 }
 
-.matches-list {
+.ligue1-matches-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.match-card {
+.ligue1-match-card {
   background: var(--card-bg);
-  border-radius: 12px;
+  border-radius: var(--ligue1-border-radius);
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--ligue1-shadow);
   border: 1px solid var(--border-color);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: var(--ligue1-transition-fast);
 }
 
-.match-card:hover {
+.ligue1-match-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--ligue1-shadow-hover);
 }
 
-.match-header {
+.ligue1-match-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -377,134 +456,127 @@
   color: var(--text-secondary);
 }
 
-.match-date {
+.ligue1-match-date {
   font-weight: 500;
 }
 
-.match-jornada {
-  background: #0055a4;
+.ligue1-match-jornada {
+  background: var(--ligue1-primary);
   color: white;
   padding: 0.25rem 0.5rem;
-  border-radius: 12px;
+  border-radius: var(--ligue1-badge-radius);
   font-size: 0.8rem;
   font-weight: 600;
 }
 
-.match-teams {
+.ligue1-match-teams {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
-.team {
+.ligue1-team {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   flex: 1;
 }
 
-.home-team {
+.ligue1-home-team {
   justify-content: flex-start;
 }
 
-.away-team {
+.ligue1-away-team {
   justify-content: flex-end;
   flex-direction: row-reverse;
 }
 
-.team-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  max-width: 200px;
-}
-
-.team-logo-match {
-  width: 32px;
-  height: 32px;
+.ligue1-team-logo-match {
+  width: var(--ligue1-team-logo-match);
+  height: var(--ligue1-team-logo-match);
   object-fit: contain;
 }
 
-.team-name {
+.ligue1-team-name {
   font-weight: 600;
   color: var(--text-primary);
   text-align: center;
 }
 
-.team-score {
+.ligue1-team-score {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #0055a4;
+  color: var(--ligue1-primary);
   min-width: 30px;
   text-align: center;
 }
 
-.vs-separator {
+.ligue1-vs-separator {
   font-weight: 600;
   color: var(--text-secondary);
   margin: 0 1rem;
 }
 
-.match-status {
+.ligue1-match-status {
   text-align: center;
 }
 
-.status-badge.finished {
+.ligue1-status-badge.ligue1-finished {
   background-color: var(--success-color);
 }
 
-.status-badge.live {
+.ligue1-status-badge.ligue1-live {
   background-color: var(--error-color);
-  animation: pulse 2s infinite;
+  animation: ligue1-pulse 2s infinite;
 }
 
-.status-badge.scheduled {
+.ligue1-status-badge.ligue1-scheduled {
   background-color: var(--text-secondary);
 }
 
-@keyframes pulse {
+@keyframes ligue1-pulse {
   0% { opacity: 1; }
   50% { opacity: 0.5; }
   100% { opacity: 1; }
 }
 
 /* Top Scorers Section */
-.top-scorers-section {
+.ligue1-top-scorers-section {
   margin-bottom: 3rem;
 }
 
-.top-scorers-section h2 {
+.ligue1-top-scorers-section h2 {
   color: var(--text-primary);
-  font-size: 2rem;
+  font-size: var(--ligue1-section-title);
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.scorers-table-container {
+.ligue1-scorers-table-container {
   background: var(--card-bg);
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: var(--ligue1-border-radius);
+  padding: var(--ligue1-card-padding);
+  box-shadow: var(--ligue1-shadow);
   border: 1px solid var(--border-color);
   overflow-x: auto;
 }
 
-.scorers-table {
+.ligue1-scorers-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
 
-.scorers-table th,
-.scorers-table td {
+.ligue1-scorers-table th,
+.ligue1-scorers-table td {
   padding: 0.75rem 0.5rem;
   text-align: center;
   border-bottom: 1px solid var(--border-color);
 }
 
-.scorers-table th {
-  background-color: #0055a4;
+.ligue1-scorers-table th {
+  background-color: var(--ligue1-primary);
   color: white;
   font-weight: 600;
   font-size: 0.8rem;
@@ -512,51 +584,51 @@
   letter-spacing: 0.5px;
 }
 
-.scorers-table tbody tr:hover {
+.ligue1-scorers-table tbody tr:hover {
   background-color: var(--light-bg);
 }
 
-.scorers-table .position {
+.ligue1-scorers-table .ligue1-position {
   font-weight: bold;
   font-size: 1.1rem;
 }
 
-.scorers-table .player-name {
+.ligue1-scorers-table .ligue1-player-name {
   text-align: left;
   font-weight: 500;
   max-width: 200px;
 }
 
-.player-info {
+.ligue1-player-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.player-photo-small {
-  width: 32px;
-  height: 32px;
+.ligue1-player-photo-small {
+  width: var(--ligue1-player-photo-small);
+  height: var(--ligue1-player-photo-small);
   object-fit: cover;
   border-radius: 50%;
 }
 
-.scorers-table .team-name {
+.ligue1-scorers-table .ligue1-team-name {
   text-align: left;
   max-width: 200px;
 }
 
-.scorers-table .goals {
+.ligue1-scorers-table .ligue1-goals {
   font-weight: bold;
   font-size: 1.1rem;
-  color: #0055a4;
+  color: var(--ligue1-primary);
 }
 
-.scorers-table .assists {
+.ligue1-scorers-table .ligue1-assists {
   color: var(--text-secondary);
 }
 
 /* Standings Legend */
-.standings-legend {
+.ligue1-standings-legend {
   display: flex;
   justify-content: center;
   gap: 2rem;
@@ -564,7 +636,7 @@
   flex-wrap: wrap;
 }
 
-.legend-item {
+.ligue1-legend-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -572,52 +644,52 @@
   color: var(--text-secondary);
 }
 
-.legend-color {
+.ligue1-legend-color {
   width: 16px;
   height: 16px;
   border-radius: 2px;
 }
 
-.legend-color.champions {
-  background-color: #0066cc;
+.ligue1-legend-color.ligue1-champions {
+  background-color: var(--ligue1-champions);
 }
 
-.legend-color.championsplayoff {
-  background-color: #20c997;
+.ligue1-legend-color.ligue1-championsplayoff {
+  background-color: var(--ligue1-champions-playoff);
 }
 
-.legend-color.europa {
-  background-color: #fd7e14;
+.ligue1-legend-color.ligue1-europa {
+  background-color: var(--ligue1-europa);
 }
 
-.legend-color.conference {
-  background-color: #0dcaf0;
+.ligue1-legend-color.ligue1-conference {
+  background-color: var(--ligue1-conference);
 }
 
-.legend-color.playoff {
-  background-color: #ffc107;
+.ligue1-legend-color.ligue1-playoff {
+  background-color: var(--ligue1-playoff);
 }
 
-.legend-color.relegation {
-  background-color: var(--error-color);
+.ligue1-legend-color.ligue1-relegation {
+  background-color: var(--ligue1-relegation);
 }
 
 /* Loading and Error States */
-.loading, .error {
+.ligue1-loading, .ligue1-error {
   text-align: center;
   padding: 2rem;
   background: var(--card-bg);
-  border-radius: 12px;
+  border-radius: var(--ligue1-border-radius);
   border: 1px solid var(--border-color);
   margin: 1rem 0;
 }
 
-.loading p {
+.ligue1-loading p {
   color: var(--text-secondary);
   font-size: 1.1rem;
 }
 
-.error p {
+.ligue1-error p {
   color: var(--error-color);
   font-size: 1.1rem;
 }
@@ -625,19 +697,25 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .ligue1-hero {
-    padding: 3rem 1rem;
+    padding: var(--ligue1-hero-padding-mobile);
   }
 
   .ligue1-logo-large {
+    margin-bottom: 1rem;
     font-size: 4rem;
   }
 
+  .ligue1-logo-image {
+    height: var(--ligue1-logo-height-mobile);
+    max-width: var(--ligue1-logo-max-width-mobile);
+  }
+
   .ligue1-hero h1 {
-    font-size: 2rem;
+    font-size: var(--ligue1-hero-title-mobile);
   }
 
   .ligue1-hero p {
-    font-size: 1rem;
+    font-size: var(--ligue1-hero-subtitle-mobile);
   }
 
   .ligue1-content {
@@ -649,87 +727,82 @@
     gap: 1rem;
   }
 
-  .stat-card {
-    padding: 1.5rem;
+  .ligue1-stat-card {
+    padding: var(--ligue1-card-padding-mobile);
   }
 
-  .stat-card h3 {
-    font-size: 2rem;
+  .ligue1-stat-card h3 {
+    font-size: var(--ligue1-stat-number-mobile);
   }
 
   .ligue1-info {
-    padding: 1.5rem;
+    padding: var(--ligue1-card-padding-mobile);
   }
 
   .ligue1-info h2 {
-    font-size: 1.5rem;
+    font-size: var(--ligue1-section-title-mobile);
   }
 
-  .competition-tabs {
+  .ligue1-competition-tabs {
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .tab-button {
+  .ligue1-tab-button {
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
-    min-width: 100px;
+    min-width: var(--ligue1-tab-min-width-mobile);
   }
 
-  .matches-filter {
+  .ligue1-matches-filter {
     gap: 0.5rem;
   }
 
-  .nav-button {
-    width: 35px;
-    height: 35px;
+  .ligue1-nav-button {
+    width: var(--ligue1-button-width-mobile);
+    height: var(--ligue1-button-width-mobile);
     font-size: 1rem;
   }
 
-  .current-jornada {
+  .ligue1-current-jornada {
     min-width: 150px;
     font-size: 1rem;
   }
 
-  .matches-filter {
+  .ligue1-matches-filter {
     flex-direction: column;
     gap: 0.5rem;
     padding: 1rem;
   }
 
-  .matches-filter select {
-    width: 100%;
-    max-width: 200px;
-  }
-
-  .match-teams {
+  .ligue1-match-teams {
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .home-team, .away-team {
+  .ligue1-home-team, .ligue1-away-team {
     justify-content: center !important;
     flex-direction: row !important;
   }
 
-  .vs-separator {
+  .ligue1-vs-separator {
     margin: 0.5rem 0;
   }
 
-  .top-scorers-section h2 {
-    font-size: 1.5rem;
+  .ligue1-top-scorers-section h2 {
+    font-size: var(--ligue1-section-title-mobile);
   }
 
-  .scorers-table-container {
+  .ligue1-scorers-table-container {
     padding: 1rem;
   }
 
-  .scorers-table {
+  .ligue1-scorers-table {
     font-size: 0.8rem;
   }
 
-  .player-photo-small {
-    width: 24px;
-    height: 24px;
+  .ligue1-player-photo-small {
+    width: var(--ligue1-player-photo-mobile);
+    height: var(--ligue1-player-photo-mobile);
   }
 }

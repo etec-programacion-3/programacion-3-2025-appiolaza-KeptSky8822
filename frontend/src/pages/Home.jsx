@@ -74,8 +74,15 @@ const Home = () => {
   return (
     <div className="home">
       <div className="hero">
-        <h1>Football Vision</h1>
-        <p>Las mejores competiciones de fútbol europeo</p>
+        <div className="hero-content">
+          <div className="hero-subtitle">Bienvenido a</div>
+          <h1>Football Vision</h1>
+          <p>
+            Tu plataforma definitiva para seguir las mejores competiciones de fútbol europeo. 
+            Estadísticas en tiempo real, clasificaciones actualizadas y toda la información 
+            que necesitas de las ligas más prestigiosas del continente.
+          </p>
+        </div>
       </div>
 
       <div className="competitions-showcase">
@@ -122,7 +129,6 @@ const Home = () => {
                 </div>
               )}
             </div>
-
           </Link>
         ))}
       </div>

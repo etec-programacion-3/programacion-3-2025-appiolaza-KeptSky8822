@@ -1,4 +1,4 @@
-/* Serie A Page Styles */
+/* Serie A Page Styles - COMPLETAMENTE AISLADO */
 .seriea-page {
   min-height: calc(100vh - 200px);
 }
@@ -44,7 +44,7 @@
   margin-bottom: 3rem;
 }
 
-.stat-card {
+.seriea-stat-card {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 2rem;
@@ -53,14 +53,14 @@
   border: 1px solid var(--border-color);
 }
 
-.stat-card h3 {
+.seriea-stat-card h3 {
   color: #008fd7;
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
-.stat-card p {
+.seriea-stat-card p {
   color: var(--text-secondary);
   font-size: 1rem;
   font-weight: 500;
@@ -87,19 +87,19 @@
   font-size: 1.1rem;
 }
 
-/* Standings Table Styles */
-.standings-section {
+/* Standings Section */
+.seriea-standings-section {
   margin-bottom: 3rem;
 }
 
-.standings-section h2 {
+.seriea-standings-section h2 {
   color: var(--text-primary);
   font-size: 2rem;
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.standings-table-container {
+.seriea-standings-table-container {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 2rem;
@@ -108,20 +108,20 @@
   overflow-x: auto;
 }
 
-.standings-table {
+.seriea-standings-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
 
-.standings-table th,
-.standings-table td {
+.seriea-standings-table th,
+.seriea-standings-table td {
   padding: 0.75rem 0.5rem;
   text-align: center;
   border-bottom: 1px solid var(--border-color);
 }
 
-.standings-table th {
+.seriea-standings-table th {
   background-color: #008fd7;
   color: white;
   font-weight: 600;
@@ -130,38 +130,38 @@
   letter-spacing: 0.5px;
 }
 
-.standings-table tbody tr:hover {
+.seriea-standings-table tbody tr:hover {
   background-color: var(--light-bg);
 }
 
-.standings-table .position {
+.seriea-standings-table .seriea-position {
   font-weight: bold;
   font-size: 1.1rem;
 }
 
-.standings-table .team-name {
+.seriea-standings-table .seriea-team-name {
   text-align: left;
   font-weight: 500;
   max-width: 200px;
 }
 
-.team-info {
+.seriea-team-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.team-logo-small {
+.seriea-team-logo-small {
   width: 24px;
   height: 24px;
   object-fit: contain;
 }
 
-.status-cell {
+.seriea-status-cell {
   text-align: center;
 }
 
-.status-badge {
+.seriea-status-badge {
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
   font-size: 0.7rem;
@@ -170,65 +170,65 @@
   letter-spacing: 0.5px;
 }
 
-.status-badge.champions {
+.seriea-status-badge.seriea-champions {
   background-color: #024281;
   color: white;
 }
 
-.status-badge.europa {
+.seriea-status-badge.seriea-europa {
   background-color: #fd7e14;
   color: white;
 }
 
-.status-badge.conference {
+.seriea-status-badge.seriea-conference {
   background-color: #00cc66;
   color: #212529;
 }
 
-.status-badge.relegation {
+.seriea-status-badge.seriea-relegation {
   background-color: var(--error-color);
   color: white;
 }
 
-.standings-table .points {
+.seriea-standings-table .seriea-points {
   font-weight: bold;
   font-size: 1.1rem;
   color: #008fd7;
 }
 
-.standings-table .positive {
+.seriea-standings-table .seriea-positive {
   color: var(--success-color);
   font-weight: 500;
 }
 
-.standings-table .negative {
+.seriea-standings-table .seriea-negative {
   color: var(--error-color);
   font-weight: 500;
 }
 
 /* Position-based styling */
-.position-champions {
+.seriea-position-champions {
   background-color: rgba(25, 135, 84, 0.1);
   border-left: 4px solid #198754;
 }
 
-.position-europa {
+.seriea-position-europa {
   background-color: rgba(253, 126, 20, 0.1);
   border-left: 4px solid #fd7e14;
 }
 
-.position-conference {
+.seriea-position-conference {
   background-color: rgba(13, 202, 240, 0.1);
   border-left: 4px solid #0dcaf0;
 }
 
-.position-relegation {
+.seriea-position-relegation {
   background-color: rgba(220, 53, 69, 0.1);
   border-left: 4px solid var(--error-color);
 }
 
 /* Competition Tabs */
-.competition-tabs {
+.seriea-competition-tabs {
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
@@ -236,7 +236,7 @@
   flex-wrap: wrap;
 }
 
-.tab-button {
+.seriea-tab-button {
   padding: 0.75rem 1.5rem;
   border: 2px solid #008fd7;
   background: transparent;
@@ -251,13 +251,13 @@
   min-width: 120px;
 }
 
-.tab-button:hover {
+.seriea-tab-button:hover {
   background: #008fd7;
   color: white;
   transform: translateY(-1px);
 }
 
-.tab-button.active {
+.seriea-tab-button.seriea-active {
   background: #008fd7;
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -265,18 +265,18 @@
 }
 
 /* Matches Section */
-.matches-section {
+.seriea-matches-section {
   margin-bottom: 3rem;
 }
 
-.matches-section h2 {
+.seriea-matches-section h2 {
   color: var(--text-primary);
   font-size: 2rem;
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.matches-filter {
+.seriea-matches-filter {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -289,7 +289,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.nav-button {
+.seriea-nav-button {
   background: #008fd7;
   color: white;
   border: none;
@@ -305,18 +305,18 @@
   justify-content: center;
 }
 
-.nav-button:hover:not(:disabled) {
+.seriea-nav-button:hover:not(:disabled) {
   background: #005a8d;
   transform: scale(1.1);
 }
 
-.nav-button:disabled {
+.seriea-nav-button:disabled {
   background: var(--text-secondary);
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.current-jornada {
+.seriea-current-jornada {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-primary);
@@ -328,13 +328,13 @@
   border: 1px solid var(--border-color);
 }
 
-.matches-list {
+.seriea-matches-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.match-card {
+.seriea-match-card {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 1.5rem;
@@ -343,12 +343,12 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.match-card:hover {
+.seriea-match-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.match-header {
+.seriea-match-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -357,11 +357,11 @@
   color: var(--text-secondary);
 }
 
-.match-date {
+.seriea-match-date {
   font-weight: 500;
 }
 
-.match-jornada {
+.seriea-match-jornada {
   background: #008fd7;
   color: white;
   padding: 0.25rem 0.5rem;
@@ -370,49 +370,42 @@
   font-weight: 600;
 }
 
-.match-teams {
+.seriea-match-teams {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
-.team {
+.seriea-team {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   flex: 1;
 }
 
-.home-team {
+.seriea-home-team {
   justify-content: flex-start;
 }
 
-.away-team {
+.seriea-away-team {
   justify-content: flex-end;
   flex-direction: row-reverse;
 }
 
-.team-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  max-width: 200px;
-}
-
-.team-logo-match {
+.seriea-team-logo-match {
   width: 32px;
   height: 32px;
   object-fit: contain;
 }
 
-.team-name {
+.seriea-team-name {
   font-weight: 600;
   color: var(--text-primary);
   text-align: center;
 }
 
-.team-score {
+.seriea-team-score {
   font-size: 1.5rem;
   font-weight: bold;
   color: #008fd7;
@@ -420,48 +413,48 @@
   text-align: center;
 }
 
-.vs-separator {
+.seriea-vs-separator {
   font-weight: 600;
   color: var(--text-secondary);
   margin: 0 1rem;
 }
 
-.match-status {
+.seriea-match-status {
   text-align: center;
 }
 
-.status-badge.finished {
+.seriea-status-badge.seriea-finished {
   background-color: var(--success-color);
 }
 
-.status-badge.live {
+.seriea-status-badge.seriea-live {
   background-color: var(--error-color);
-  animation: pulse 2s infinite;
+  animation: seriea-pulse 2s infinite;
 }
 
-.status-badge.scheduled {
+.seriea-status-badge.seriea-scheduled {
   background-color: var(--text-secondary);
 }
 
-@keyframes pulse {
+@keyframes seriea-pulse {
   0% { opacity: 1; }
   50% { opacity: 0.5; }
   100% { opacity: 1; }
 }
 
 /* Top Scorers Section */
-.top-scorers-section {
+.seriea-top-scorers-section {
   margin-bottom: 3rem;
 }
 
-.top-scorers-section h2 {
+.seriea-top-scorers-section h2 {
   color: var(--text-primary);
   font-size: 2rem;
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.scorers-table-container {
+.seriea-scorers-table-container {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 2rem;
@@ -470,20 +463,20 @@
   overflow-x: auto;
 }
 
-.scorers-table {
+.seriea-scorers-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
 
-.scorers-table th,
-.scorers-table td {
+.seriea-scorers-table th,
+.seriea-scorers-table td {
   padding: 0.75rem 0.5rem;
   text-align: center;
   border-bottom: 1px solid var(--border-color);
 }
 
-.scorers-table th {
+.seriea-scorers-table th {
   background-color: #008fd7;
   color: white;
   font-weight: 600;
@@ -492,51 +485,51 @@
   letter-spacing: 0.5px;
 }
 
-.scorers-table tbody tr:hover {
+.seriea-scorers-table tbody tr:hover {
   background-color: var(--light-bg);
 }
 
-.scorers-table .position {
+.seriea-scorers-table .seriea-position {
   font-weight: bold;
   font-size: 1.1rem;
 }
 
-.scorers-table .player-name {
+.seriea-scorers-table .seriea-player-name {
   text-align: left;
   font-weight: 500;
   max-width: 200px;
 }
 
-.player-info {
+.seriea-player-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.player-photo-small {
+.seriea-player-photo-small {
   width: 32px;
   height: 32px;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.scorers-table .team-name {
+.seriea-scorers-table .seriea-team-name {
   text-align: left;
   max-width: 200px;
 }
 
-.scorers-table .goals {
+.seriea-scorers-table .seriea-goals {
   font-weight: bold;
   font-size: 1.1rem;
   color: #008fd7;
 }
 
-.scorers-table .assists {
+.seriea-scorers-table .seriea-assists {
   color: var(--text-secondary);
 }
 
 /* Standings Legend */
-.standings-legend {
+.seriea-standings-legend {
   display: flex;
   justify-content: center;
   gap: 2rem;
@@ -544,7 +537,7 @@
   flex-wrap: wrap;
 }
 
-.legend-item {
+.seriea-legend-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -552,30 +545,30 @@
   color: var(--text-secondary);
 }
 
-.legend-color {
+.seriea-legend-color {
   width: 16px;
   height: 16px;
   border-radius: 2px;
 }
 
-.legend-color.champions {
+.seriea-legend-color.seriea-champions {
   background-color: #198754;
 }
 
-.legend-color.europa {
+.seriea-legend-color.seriea-europa {
   background-color: #fd7e14;
 }
 
-.legend-color.conference {
+.seriea-legend-color.seriea-conference {
   background-color: #0dcaf0;
 }
 
-.legend-color.relegation {
+.seriea-legend-color.seriea-relegation {
   background-color: var(--error-color);
 }
 
 /* Loading and Error States */
-.loading, .error {
+.seriea-loading, .seriea-error {
   text-align: center;
   padding: 2rem;
   background: var(--card-bg);
@@ -584,12 +577,12 @@
   margin: 1rem 0;
 }
 
-.loading p {
+.seriea-loading p {
   color: var(--text-secondary);
   font-size: 1.1rem;
 }
 
-.error p {
+.seriea-error p {
   color: var(--error-color);
   font-size: 1.1rem;
 }
@@ -621,11 +614,11 @@
     gap: 1rem;
   }
 
-  .stat-card {
+  .seriea-stat-card {
     padding: 1.5rem;
   }
 
-  .stat-card h3 {
+  .seriea-stat-card h3 {
     font-size: 2rem;
   }
 
@@ -637,70 +630,65 @@
     font-size: 1.5rem;
   }
 
-  .competition-tabs {
+  .seriea-competition-tabs {
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .tab-button {
+  .seriea-tab-button {
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
     min-width: 100px;
   }
 
-  .matches-filter {
+  .seriea-matches-filter {
     gap: 0.5rem;
   }
 
-  .nav-button {
+  .seriea-nav-button {
     width: 35px;
     height: 35px;
     font-size: 1rem;
   }
 
-  .current-jornada {
+  .seriea-current-jornada {
     min-width: 150px;
     font-size: 1rem;
   }
 
-  .matches-filter {
+  .seriea-matches-filter {
     flex-direction: column;
     gap: 0.5rem;
     padding: 1rem;
   }
 
-  .matches-filter select {
-    width: 100%;
-    max-width: 200px;
-  }
-
-  .match-teams {
+  .seriea-match-teams {
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .home-team, .away-team {
+  .seriea-home-team, .seriea-away-team {
     justify-content: center !important;
     flex-direction: row !important;
   }
 
-  .vs-separator {
+  .seriea-vs-separator {
     margin: 0.5rem 0;
   }
 
-  .top-scorers-section h2 {
+  .seriea-top-scorers-section h2 {
     font-size: 1.5rem;
   }
 
-  .scorers-table-container {
+  .seriea-scorers-table-container {
     padding: 1rem;
   }
 
-  .scorers-table {
+  .seriea-scorers-table {
     font-size: 0.8rem;
   }
 
-  .player-photo-small {
+  .seriea-player-photo-small {
     width: 24px;
     height: 24px;
   }

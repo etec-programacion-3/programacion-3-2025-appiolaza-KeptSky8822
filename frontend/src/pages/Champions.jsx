@@ -189,7 +189,7 @@ const Champions = () => {
     }
   };
 
-  const fetchMatches = async (jornada = '') => {
+  const fetchMatchesData = async (jornada = '') => {
     try {
       setLoadingMatches(true);
       setMatchesError(null); // Limpiar errores previos
@@ -270,14 +270,14 @@ const Champions = () => {
 
   fetchChampionsStandings();
   fetchTopScorers();
-  fetchMatches();
+  fetchMatchesData();
   }, []);
 
   return (
     <div className="champions-page">
       <div className="champions-hero">
         <div className="champions-logo-large">
-          🏆
+          <img src="/assets/champions-logo.png" alt="UEFA Champions League" className="champions-logo-img" />
         </div>
         <h1>UEFA Champions League</h1>
         <p>La competición más prestigiosa del fútbol europeo</p>

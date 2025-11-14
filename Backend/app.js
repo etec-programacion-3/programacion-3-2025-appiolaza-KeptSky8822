@@ -15,15 +15,22 @@ const ArticleRoutes = require('./src/routes/articulos');
 const MediaGalleryRoutes = require('./src/routes/mediagallery');
 const autoUpdateService = require('./src/services/autoUpdateService');
 
+const PORT = process.env.PORT || 3000;
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
 
 require('dotenv').config();
+
+// Leer variable del .env
+const BACKEND_URL = process.env.BACKEND_URL;
+
+console.log("URL del backend:", BACKEND_URL);
 
 
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:5173' // 👈 el puerto donde corre Vite
+  origin: process.env.FRONTEND_URL // 👈 el puerto donde corre Vite
 }));
 
 app.use(express.json());
@@ -90,8 +97,9 @@ async function main() {
     await sequelize.sync({}); // crea/actualiza las tablas
     console.log("✅ Modelos sincronizados");
 
-    app.listen(3000, () => {
-      console.log("Servidor corriendo en http://localhost:3000");
+    app.listen(PORT, () => {
+      console.log(`Servidor corriendo en el puerto ${PORT}`);
+
 
       // Iniciar servicio de actualización automática
       autoUpdateService.startScheduler();
